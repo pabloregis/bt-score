@@ -51,6 +51,21 @@ public struct MatchState: Hashable, Sendable {
         scores[team].tieBreakPoints
     }
 
+    /// Pontos da dupla como o jogador lê: 0-15-30-40 no game, a contagem no tie-break.
+    public func pointsFormatted(for team: Team) -> String {
+        phase == .tieBreak ? "\(tieBreakPoints(for: team))" : gameScore(for: team).formatted
+    }
+
+    /// Pontos das duas duplas, do ponto de vista de Nós: "30-15".
+    var pointsFormatted: String {
+        "\(pointsFormatted(for: .us))-\(pointsFormatted(for: .them))"
+    }
+
+    /// Games do set em andamento, do ponto de vista de Nós: "3-2".
+    var gamesFormatted: String {
+        "\(games(for: .us))-\(games(for: .them))"
+    }
+
     mutating func apply(_ event: MatchEvent) {
         guard !isOver else { return }
         switch event {

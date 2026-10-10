@@ -36,7 +36,7 @@ private struct TeamHalf: View {
     var body: some View {
         Button(action: onPoint) {
             HStack(spacing: 10) {
-                Text(verbatim: points)
+                Text(verbatim: state.pointsFormatted(for: team))
                     .font(.system(size: 64, weight: .light))
                     .tracking(-2.5)
                     .monospacedDigit()
@@ -60,32 +60,13 @@ private struct TeamHalf: View {
         .accessibilityElement(children: .combine)
         .accessibilityHint("Toque para marcar ponto")
     }
-
-    /// Pontos do game (0-15-30-40) ou, no tie-break, a contagem numérica.
-    private var points: String {
-        switch state.phase {
-        case .game, .finished: state.gameScore(for: team).display
-        case .tieBreak: "\(state.tieBreakPoints(for: team))"
-        }
-    }
 }
 
-private extension Team {
+extension Team {
     var label: LocalizedStringKey {
         switch self {
         case .us: "Nós"
         case .them: "Eles"
-        }
-    }
-}
-
-private extension GameScore {
-    var display: String {
-        switch self {
-        case .love: "0"
-        case .fifteen: "15"
-        case .thirty: "30"
-        case .forty: "40"
         }
     }
 }

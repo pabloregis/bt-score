@@ -12,6 +12,11 @@ public struct Match: Hashable, Sendable {
         events.append(event)
     }
 
+    /// Remove o último evento do log. Com o log vazio, não faz nada.
+    public mutating func undo() {
+        _ = events.popLast()
+    }
+
     public var state: MatchState {
         events.reduce(into: MatchState(format: format)) { $0.apply($1) }
     }
