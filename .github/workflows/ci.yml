@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  engine:
+    name: Motor (Linux)
+    runs-on: ubuntu-latest
+    container: swift:6.4-noble
+    steps:
+      - uses: actions/checkout@v4
+      - name: Testes do ScoreEngine
+        run: swift test --package-path ScoreEngine
+
+  watch-app:
+    name: App watchOS (macOS)
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar XcodeGen
+        run: brew install xcodegen
+      - name: Gerar projeto Xcode
+        run: xcodegen generate
+      - name: Compilar target watchOS
+        run: >
+          xcodebuild build
+          -project BTScore.xcodeproj
+          -scheme BTScore
+          -destination 'generic/platform=watchOS Simulator'
+          CODE_SIGNING_ALLOWED=NO
