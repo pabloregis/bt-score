@@ -11,7 +11,7 @@ struct ResumeView: View {
         ConfirmationLayout(title: "Retomar partida?") {
             Group {
                 if let startedAt = match.startedAt {
-                    Text("\(match.state.resumeSummary). Começou às \(startedAt, format: .dateTime.hour().minute()).")
+                    Text("\(match.state.resumeSummary). Começou às \(startedAt, format: .dateTime.hour().minute().locale(Locale(identifier: "pt_BR"))).")
                 } else {
                     Text(verbatim: match.state.resumeSummary)
                 }

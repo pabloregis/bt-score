@@ -27,7 +27,7 @@ struct ConfirmationLayout<Content: View, Buttons: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
-                .font(.system(size: 18, weight: .medium))
+                .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(Color.white)
             content
             Spacer(minLength: 0)
