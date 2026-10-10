@@ -1,9 +1,9 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 import PackageDescription
 
 let package = Package(
     name: "ScoreEngine",
-    platforms: [.watchOS(.v10), .macOS(.v14)],
+    platforms: [.watchOS(.v26), .macOS(.v26)],
     products: [
         .library(name: "ScoreEngine", targets: ["ScoreEngine"]),
     ],

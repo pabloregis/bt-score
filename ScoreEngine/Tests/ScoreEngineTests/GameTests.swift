@@ -57,6 +57,14 @@ struct GameTests {
         #expect(state.gameScore(for: them) == .thirty)
     }
 
+    @Test("partida nova usa o formato set único, e o formato é preservado")
+    func format() {
+        #expect(Match().format == .singleSet)
+        var match = Match(format: .singleSet)
+        match.record(.point(us))
+        #expect(match.format == .singleSet)
+    }
+
     @Test("o log guarda os eventos na ordem em que foram registrados")
     func eventLog() {
         #expect(match([us, them, us]).events == [.point(us), .point(them), .point(us)])

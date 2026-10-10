@@ -5,7 +5,14 @@ public enum GameScore: Hashable, Sendable {
     case thirty
     case forty
 
-    init(points: Int) {
-        self = [.love, .fifteen, .thirty, .forty][points]
+    /// A pontuação depois de mais um ponto, ou `nil` quando o ponto fecha o game.
+    /// No-ad: o ponto marcado com 40 sempre fecha o game, inclusive no 40-40.
+    var next: GameScore? {
+        switch self {
+        case .love: .fifteen
+        case .fifteen: .thirty
+        case .thirty: .forty
+        case .forty: nil
+        }
     }
 }
