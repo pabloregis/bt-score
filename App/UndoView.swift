@@ -2,21 +2,21 @@ import SwiftUI
 import ScoreEngine
 
 /// Confirmação de desfazer: a dupla do último ponto e o placar antes e depois.
+/// Com a partida em andamento, também oferece encerrá-la antes do fim.
 struct UndoView: View {
     let preview: UndoPreview
     let onCancel: () -> Void
     let onUndo: () -> Void
+    /// `nil` quando a partida já acabou: aí não há o que encerrar.
+    let onEnd: (() -> Void)?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        ConfirmationLayout(title: "Desfazer?") {
             if preview.isTieBreak {
                 Text("tie-break")
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(Color.accent)
             }
-            Text("Desfazer?")
-                .font(.system(size: 18, weight: .medium))
-                .foregroundStyle(Color.white)
             Text("Último ponto: \(Text(preview.team.label))")
                 .font(.system(size: 13))
                 .foregroundStyle(Color.ink2)
@@ -35,27 +35,20 @@ struct UndoView: View {
             .monospacedDigit()
             .lineLimit(1)
             .minimumScaleFactor(0.6)
-            Spacer(minLength: 0)
+        } buttons: {
             HStack(spacing: 8) {
-                Button(action: onCancel) {
-                    Text("Não")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundStyle(Color.white)
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .background(Color.rule, in: Capsule())
-                }
-                Button(action: onUndo) {
-                    Text("Desfazer")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundStyle(Color.black)
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .background(Color.white, in: Capsule())
-                }
+                PillButton(title: "Não", action: onCancel)
+                PillButton(title: "Desfazer", primary: true, action: onUndo)
             }
-            .buttonStyle(.plain)
+            if let onEnd {
+                Button(action: onEnd) {
+                    Text("Encerrar partida")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(Color.ink3)
+                        .frame(maxWidth: .infinity, minHeight: 28)
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .padding(.horizontal, 12)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color.black)
     }
 }

@@ -32,14 +32,7 @@ struct ResultView: View {
                 .font(.system(size: 12))
                 .foregroundStyle(Color.ink3)
             Spacer(minLength: 0)
-            Button(action: onDone) {
-                Text("Concluir")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(Color.black)
-                    .frame(maxWidth: .infinity, minHeight: 40)
-                    .background(Color.white, in: Capsule())
-            }
-            .buttonStyle(.plain)
+            PillButton(title: "Concluir", primary: true, action: onDone)
         }
         .padding(.horizontal, 12)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
