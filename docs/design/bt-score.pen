@@ -1,0 +1,1657 @@
+{
+  "version": "2.21",
+  "children": [
+    {
+      "type": "frame",
+      "id": "LgQWa",
+      "x": 0,
+      "y": 0,
+      "name": "Lado do placar",
+      "reusable": true,
+      "width": 184,
+      "height": 96,
+      "fill": "$bg",
+      "gap": 10,
+      "padding": [
+        0,
+        16
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "bEgyO",
+          "name": "Pontos",
+          "fill": "$ink",
+          "textGrowth": "fixed-width",
+          "width": 84,
+          "content": "30",
+          "lineHeight": 1,
+          "fontFamily": "$font",
+          "fontSize": 64,
+          "fontWeight": "300",
+          "letterSpacing": -2.5
+        },
+        {
+          "type": "frame",
+          "id": "bqERC",
+          "name": "Info",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 1,
+          "children": [
+            {
+              "type": "text",
+              "id": "BCrH1",
+              "name": "Dupla",
+              "fill": "$ink-3",
+              "content": "Nós",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "hEHeH",
+              "name": "Games",
+              "fill": "$ink",
+              "content": "3",
+              "fontFamily": "$font",
+              "fontSize": 18,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "MjMA1",
+              "name": "Saque",
+              "fill": "$accent",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "saca · Parceiro",
+              "lineHeight": 1.2,
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "XrTWS",
+      "x": 224,
+      "y": 0,
+      "name": "Opção",
+      "reusable": true,
+      "width": 164,
+      "height": 40,
+      "fill": "$bg",
+      "cornerRadius": 20,
+      "stroke": "$rule",
+      "strokeWidth": 1,
+      "padding": [
+        0,
+        14
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "CgCKr",
+          "name": "Rótulo",
+          "fill": "$ink",
+          "content": "Eu",
+          "fontFamily": "$font",
+          "fontSize": 15,
+          "fontWeight": "500"
+        },
+        {
+          "type": "text",
+          "id": "kURdE",
+          "name": "Detalhe",
+          "fill": "$ink-3",
+          "content": "Nós",
+          "fontFamily": "$font",
+          "fontSize": 11,
+          "fontWeight": "500"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "kRfCW",
+      "x": 428,
+      "y": 0,
+      "name": "Botão",
+      "reusable": true,
+      "width": 164,
+      "height": 40,
+      "fill": "$rule",
+      "cornerRadius": 20,
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "I52tAv",
+          "name": "Texto",
+          "fill": "$ink",
+          "content": "Não",
+          "fontFamily": "$font",
+          "fontSize": 15,
+          "fontWeight": "700"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "oCtvF",
+      "x": 0,
+      "y": 160,
+      "name": "01 Placar",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "S9SpYh",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "text",
+              "id": "g7oAxE",
+              "name": "Fase",
+              "fill": "$accent",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "UgKK8",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "10:42",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "id": "N5bZ7",
+          "type": "ref",
+          "ref": "LgQWa",
+          "name": "Nós",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#00000000",
+          "descendants": {
+            "bEgyO": {
+              "content": "30",
+              "fill": "$ink"
+            },
+            "BCrH1": {
+              "content": "Nós"
+            },
+            "hEHeH": {
+              "content": "3"
+            },
+            "MjMA1": {
+              "content": "saca\nParceiro",
+              "enabled": true
+            }
+          }
+        },
+        {
+          "id": "MywtQ",
+          "type": "ref",
+          "ref": "LgQWa",
+          "name": "Eles",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#00000000",
+          "stroke": "$rule",
+          "strokeWidth": {
+            "top": 1
+          },
+          "descendants": {
+            "bEgyO": {
+              "content": "15",
+              "fill": "$ink-2"
+            },
+            "BCrH1": {
+              "content": "Eles"
+            },
+            "hEHeH": {
+              "content": "2"
+            },
+            "MjMA1": {
+              "content": "",
+              "enabled": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Y33Ba4",
+      "x": 232,
+      "y": 160,
+      "name": "02 Placar · tie-break",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "yQaBx",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "text",
+              "id": "ZJBEp",
+              "name": "Fase",
+              "fill": "$accent",
+              "content": "tie-break",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "YFHI4",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "11:08",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "id": "ckyFC",
+          "type": "ref",
+          "ref": "LgQWa",
+          "name": "Nós",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#00000000",
+          "descendants": {
+            "bEgyO": {
+              "content": "5",
+              "fill": "$ink"
+            },
+            "BCrH1": {
+              "content": "Nós"
+            },
+            "hEHeH": {
+              "content": "6"
+            },
+            "MjMA1": {
+              "content": "",
+              "enabled": false
+            }
+          }
+        },
+        {
+          "id": "s8qBqA",
+          "type": "ref",
+          "ref": "LgQWa",
+          "name": "Eles",
+          "width": "fill_container",
+          "height": "fill_container",
+          "fill": "#00000000",
+          "stroke": "$rule",
+          "strokeWidth": {
+            "top": 1
+          },
+          "descendants": {
+            "bEgyO": {
+              "content": "4",
+              "fill": "$ink-2"
+            },
+            "BCrH1": {
+              "content": "Eles"
+            },
+            "hEHeH": {
+              "content": "6"
+            },
+            "MjMA1": {
+              "content": "saca Adv. 1\n2 de 2",
+              "enabled": true,
+              "textGrowth": "auto"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "PsxRT",
+      "x": 464,
+      "y": 160,
+      "name": "03 Quem saca (início do set)",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "O9JUa",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "wVfGp",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "10:01",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "WV4Cg",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 5,
+          "padding": [
+            2,
+            10,
+            12,
+            10
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "D3b8Gj",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JmeDh",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Quem saca?",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "id": "KxJR8",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Eu",
+              "width": "fill_container",
+              "height": 32,
+              "stroke": "$accent",
+              "descendants": {
+                "CgCKr": {
+                  "content": "Eu",
+                  "fill": "$accent"
+                },
+                "kURdE": {
+                  "content": "Nós",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "a8gIP",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Parceiro",
+              "width": "fill_container",
+              "height": 32,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Parceiro"
+                },
+                "kURdE": {
+                  "content": "Nós",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "dhsO3",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Adversário 1",
+              "width": "fill_container",
+              "height": 32,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Adversário 1"
+                },
+                "kURdE": {
+                  "content": "Eles",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "SwRMN",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Adversário 2",
+              "width": "fill_container",
+              "height": 32,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Adversário 2"
+                },
+                "kURdE": {
+                  "content": "Eles",
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "seuuN",
+      "x": 696,
+      "y": 160,
+      "name": "04 Ordem da outra dupla",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "IVF9j",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "B2QYra",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "10:05",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "MOgPN",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            10,
+            12,
+            10
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "a8TAik",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "LepnQ",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Quem saca por Eles?",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "CU62q",
+                  "name": "Subtítulo",
+                  "fill": "$ink-3",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Primeiro saque da dupla neste set",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "id": "GBtTI",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Adversário 1",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Adversário 1"
+                },
+                "kURdE": {
+                  "content": "",
+                  "enabled": false
+                }
+              }
+            },
+            {
+              "id": "rK4oE",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Adversário 2",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Adversário 2"
+                },
+                "kURdE": {
+                  "content": "",
+                  "enabled": false
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "awzFl",
+      "x": 928,
+      "y": 160,
+      "name": "05 Desfazer",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "I5puaj",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "U6IRL",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "10:43",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "smlUt",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            12,
+            14,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "nfzbN",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "BBPVP",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Desfazer?",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "ETRxl",
+                  "name": "Subtítulo",
+                  "fill": "$ink-3",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Último ponto: Nós",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "hnz6W",
+              "name": "Mudança",
+              "width": "fill_container",
+              "gap": 8,
+              "padding": [
+                4,
+                8
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "v8nri",
+                  "name": "Antes",
+                  "fill": "$ink-3",
+                  "content": "30-15",
+                  "fontFamily": "$font",
+                  "fontSize": 26,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "icon",
+                  "id": "k3jTDP",
+                  "name": "Seta",
+                  "width": 16,
+                  "height": 16,
+                  "icon": "arrow-right",
+                  "library": "lucide",
+                  "fill": "$ink-3"
+                },
+                {
+                  "type": "text",
+                  "id": "m2fy2",
+                  "name": "Depois",
+                  "fill": "$ink",
+                  "content": "15-15",
+                  "fontFamily": "$font",
+                  "fontSize": 26,
+                  "fontWeight": "300"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "dYKMX",
+              "name": "Espaço",
+              "width": "fill_container",
+              "height": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "RF9By",
+              "name": "Ações",
+              "width": "fill_container",
+              "gap": 6,
+              "children": [
+                {
+                  "id": "GGfYx",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Não",
+                  "width": "fill_container",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Não"
+                    }
+                  }
+                },
+                {
+                  "id": "d41yy",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Desfazer",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Desfazer",
+                      "fill": "$bg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "J3n2G",
+      "x": 1160,
+      "y": 160,
+      "name": "06 Resultado",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "gUcQW",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "CViLB",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "11:20",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "bD6dO",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            12,
+            14,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "YJ6El",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "W3TcnN",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Vitória",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "P40xW",
+              "name": "Placar final",
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "VJJqY",
+                  "name": "Sets",
+                  "gap": 6,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x28pND",
+                      "name": "Games",
+                      "fill": "$ink",
+                      "content": "7-6",
+                      "lineHeight": 1,
+                      "fontFamily": "$font",
+                      "fontSize": 48,
+                      "fontWeight": "300",
+                      "letterSpacing": -1.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "S25Kc",
+                      "name": "TB wrap",
+                      "padding": [
+                        0,
+                        0,
+                        5,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KGtAO",
+                          "name": "Tie-break",
+                          "fill": "$ink-3",
+                          "content": "(10-9)",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "c1aop",
+                  "name": "Detalhe",
+                  "fill": "$ink-3",
+                  "content": "10 out · 52 min",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "grKld",
+              "name": "Espaço",
+              "width": "fill_container",
+              "height": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "z0p5w",
+              "name": "Ações",
+              "width": "fill_container",
+              "gap": 6,
+              "children": [
+                {
+                  "id": "teKuW",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Concluir",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Concluir",
+                      "fill": "$bg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "NnNoJ",
+      "x": 1392,
+      "y": 160,
+      "name": "07 Nova partida",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "FC7ux",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "qQpsh",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "09:58",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "T0TfS",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            12,
+            14,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "IFlmT",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "G4BwV2",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Nova partida",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "id": "Ij55T",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Set único",
+              "width": "fill_container",
+              "height": 34,
+              "stroke": "$accent",
+              "descendants": {
+                "CgCKr": {
+                  "content": "Set único",
+                  "fill": "$accent"
+                },
+                "kURdE": {
+                  "content": "padrão",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "R4YZ4O",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção Melhor de 3",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "Melhor de 3"
+                },
+                "kURdE": {
+                  "content": "3 sets",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "type": "frame",
+              "id": "d48d0K",
+              "name": "Espaço",
+              "width": "fill_container",
+              "height": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "wKcdq",
+              "name": "Ações",
+              "width": "fill_container",
+              "gap": 6,
+              "children": [
+                {
+                  "id": "zTx5p",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Histórico",
+                  "width": "fill_container",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Histórico"
+                    }
+                  }
+                },
+                {
+                  "id": "AEZAH",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Começar",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Começar",
+                      "fill": "$bg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "AOSjH",
+      "x": 1624,
+      "y": 160,
+      "name": "08 Histórico",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "r0ZUC",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "jhLHu",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "12:30",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "izSSb",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            10,
+            12,
+            10
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Nc6lh",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i5XpY",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Histórico",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "id": "Lmr5m",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção 7-6",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "7-6 (10-9)"
+                },
+                "kURdE": {
+                  "content": "10 out",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "tleBS",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção 6-4",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "6-4"
+                },
+                "kURdE": {
+                  "content": "8 out",
+                  "enabled": true
+                }
+              }
+            },
+            {
+              "id": "ZoUl7",
+              "type": "ref",
+              "ref": "XrTWS",
+              "name": "Opção 6-3 4-6 10-7",
+              "width": "fill_container",
+              "height": 34,
+              "descendants": {
+                "CgCKr": {
+                  "content": "6-3 4-6 [10-7]"
+                },
+                "kURdE": {
+                  "content": "5 out",
+                  "enabled": true
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "ekyeZ",
+      "x": 1856,
+      "y": 160,
+      "name": "09 Retomar partida",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "c3Ojm",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "abBNE",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "10:30",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "H07uCv",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            12,
+            14,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "B9ua5",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Bpumf",
+                  "name": "Título",
+                  "fill": "$ink",
+                  "content": "Retomar partida?",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "text",
+                  "id": "GHoxp",
+                  "name": "Subtítulo",
+                  "fill": "$ink-3",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Set 1 · games 4-3 · 30-15. Começou às 10:12.",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "SlQNN",
+              "name": "Espaço",
+              "width": "fill_container",
+              "height": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "b8cOb",
+              "name": "Ações",
+              "width": "fill_container",
+              "gap": 6,
+              "children": [
+                {
+                  "id": "M6Fv0x",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Descartar",
+                  "width": "fill_container",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Descartar"
+                    }
+                  }
+                },
+                {
+                  "id": "uNPbf",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Retomar",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Retomar",
+                      "fill": "$bg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Nir64",
+      "x": 1160,
+      "y": 432,
+      "name": "06b Resultado · derrota",
+      "clip": true,
+      "width": 184,
+      "height": 224,
+      "fill": "$bg",
+      "cornerRadius": 34,
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "y5gp1",
+          "name": "Status",
+          "width": "fill_container",
+          "height": 24,
+          "padding": [
+            8,
+            18,
+            0,
+            18
+          ],
+          "justifyContent": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "A4aYou",
+              "name": "Hora",
+              "fill": "$ink-2",
+              "content": "11:20",
+              "fontFamily": "$font",
+              "fontSize": 12,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "t086HC",
+          "name": "Corpo",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 6,
+          "padding": [
+            2,
+            12,
+            14,
+            12
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "BMTIK",
+              "name": "Cabeçalho",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 1,
+              "padding": [
+                0,
+                8,
+                2,
+                8
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mKc6W",
+                  "name": "Título",
+                  "fill": "$ink-2",
+                  "content": "Derrota",
+                  "fontFamily": "$font",
+                  "fontSize": 16,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "cA9T8",
+              "name": "Placar final",
+              "layout": "vertical",
+              "gap": 2,
+              "padding": [
+                0,
+                8
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "H8gVRo",
+                  "name": "Sets",
+                  "gap": 6,
+                  "alignItems": "end",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "uj63d",
+                      "name": "Games",
+                      "fill": "$ink",
+                      "content": "6-7",
+                      "lineHeight": 1,
+                      "fontFamily": "$font",
+                      "fontSize": 48,
+                      "fontWeight": "300",
+                      "letterSpacing": -1.5
+                    },
+                    {
+                      "type": "frame",
+                      "id": "uorei",
+                      "name": "TB wrap",
+                      "padding": [
+                        0,
+                        0,
+                        5,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RzhDz",
+                          "name": "Tie-break",
+                          "fill": "$ink-3",
+                          "content": "(9-10)",
+                          "fontFamily": "$font",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "qK3o5",
+                  "name": "Detalhe",
+                  "fill": "$ink-3",
+                  "content": "10 out · 52 min",
+                  "fontFamily": "$font",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "amO3n",
+              "name": "Espaço",
+              "width": "fill_container",
+              "height": "fill_container"
+            },
+            {
+              "type": "frame",
+              "id": "DN0WB",
+              "name": "Ações",
+              "width": "fill_container",
+              "gap": 6,
+              "children": [
+                {
+                  "id": "m8d7zm",
+                  "type": "ref",
+                  "ref": "kRfCW",
+                  "name": "Botão Concluir",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "descendants": {
+                    "I52tAv": {
+                      "content": "Concluir",
+                      "fill": "$bg"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "bg": {
+      "type": "color",
+      "value": "#000000"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "ink-2": {
+      "type": "color",
+      "value": "#C2C2C2"
+    },
+    "ink-3": {
+      "type": "color",
+      "value": "#7E7E7E"
+    },
+    "rule": {
+      "type": "color",
+      "value": "#383838"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#1C1C1C"
+    },
+    "accent": {
+      "type": "color",
+      "value": "#F2792B"
+    },
+    "font": {
+      "type": "string",
+      "value": "Inter Tight"
+    }
+  },
+  "fileToken": "981990c9-a499-4a40-91e2-fcd45e01f6b2"
+}

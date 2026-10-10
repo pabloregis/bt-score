@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BT Score — catálogo de UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Nunito:wght@600;800;900&family=Inter+Tight:wght@300;500;700&display=swap">
+<style>
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V5
+ * Hallmark · macrostructure: Catalogue (3 alternativas × 5 telas) · tone: esportivo / utilitário / austero · anchor hue: por alternativa
+ * Telas no tamanho lógico do Apple Watch 44 mm (184×224 pt) desenhadas a 1,5× (276×336 px).
+ * Fontes web são substitutas: Barlow Condensed ≈ SF Compact .width(.condensed); Nunito ≈ SF Compact Rounded; Inter Tight ≈ SF Compact.
+ */
+:root {
+  --color-page: oklch(97% 0.005 90);
+  --color-page-ink: oklch(22% 0.01 90);
+  --color-page-mute: oklch(50% 0.01 90);
+  --color-page-rule: oklch(88% 0.005 90);
+  --color-black: oklch(0% 0 0);
+  --color-white: oklch(100% 0 0);
+  --color-grey-1: oklch(78% 0 0);
+  --color-grey-2: oklch(55% 0 0);
+  --color-grey-3: oklch(28% 0 0);
+  --color-grey-4: oklch(18% 0 0);
+  /* A · Estádio */
+  --color-a-us: oklch(86% 0.17 90);     /* âmbar de placar */
+  --color-a-them: oklch(100% 0 0);
+  --color-a-serve: oklch(86% 0.17 90);
+  --color-a-alert: oklch(68% 0.2 30);
+  /* B · Campos de cor */
+  --color-b-us: oklch(88% 0.2 128);     /* lima */
+  --color-b-us-ink: oklch(22% 0.06 128);
+  --color-b-them: oklch(78% 0.13 230);  /* azul piscina */
+  --color-b-them-ink: oklch(20% 0.05 230);
+  /* C · Austero */
+  --color-c-accent: oklch(72% 0.19 45); /* laranja, só no sacador */
+  --font-a: "Barlow Condensed", "SF Compact", system-ui, sans-serif;
+  --font-b: "Nunito", "SF Compact Rounded", system-ui, sans-serif;
+  --font-c: "Inter Tight", "SF Compact", system-ui, sans-serif;
+  --font-ui: "Inter Tight", system-ui, sans-serif;
+  --space-xs: 4px; --space-sm: 8px; --space-md: 16px; --space-lg: 32px; --space-xl: 56px;
+  --radius-screen: 48px;
+  --w: 276px; --h: 336px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-page: oklch(17% 0.005 90);
+    --color-page-ink: oklch(94% 0.005 90);
+    --color-page-mute: oklch(68% 0.01 90);
+    --color-page-rule: oklch(30% 0.005 90);
+  }
+}
+:root[data-theme="dark"] {
+  --color-page: oklch(17% 0.005 90);
+  --color-page-ink: oklch(94% 0.005 90);
+  --color-page-mute: oklch(68% 0.01 90);
+  --color-page-rule: oklch(30% 0.005 90);
+}
+* { box-sizing: border-box; margin: 0; }
+html, body { overflow-x: clip; }
+body {
+  background: var(--color-page); color: var(--color-page-ink);
+  font-family: var(--font-ui); line-height: 1.5;
+  padding: var(--space-lg) var(--space-md) var(--space-xl);
+}
+header.top { max-width: 72rem; margin: 0 auto var(--space-xl); }
+header.top h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
+header.top p { color: var(--color-page-mute); max-width: 62ch; margin-top: var(--space-sm); }
+section.alt { max-width: 72rem; margin: 0 auto var(--space-xl); border-top: 1px solid var(--color-page-rule); padding-top: var(--space-lg); }
+section.alt h2 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+section.alt .why { color: var(--color-page-mute); max-width: 68ch; margin: var(--space-sm) 0 var(--space-lg); }
+.row { display: flex; flex-wrap: wrap; gap: var(--space-lg) var(--space-md); }
+figure { display: flex; flex-direction: column; gap: var(--space-sm); }
+figcaption { font-size: 0.875rem; color: var(--color-page-mute); }
+.screen {
+  width: var(--w); height: var(--h); border-radius: var(--radius-screen);
+  background: var(--color-black); color: var(--color-white);
+  overflow: hidden; position: relative; display: flex; flex-direction: column;
+}
+.status { display: flex; justify-content: space-between; padding: 14px 26px 0; font-size: 15px; color: var(--color-grey-1); height: 34px; }
+.half { flex: 1; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; position: relative; }
+
+/* ---------- A · Estádio ---------- */
+.a { font-family: var(--font-a); }
+.a .half + .half { border-top: 2px solid var(--color-grey-3); }
+.a .team { display: flex; flex-direction: column; line-height: 1; }
+.a .label { font-size: 20px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-grey-1); }
+.a .games { font-size: 30px; font-weight: 800; margin-top: 6px; }
+.a .pts { font-size: 104px; font-weight: 800; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.a .us .pts, .a .us .games { color: var(--color-a-us); }
+.a .them .pts, .a .them .games { color: var(--color-a-them); }
+.a .serve { font-size: 16px; font-weight: 600; color: var(--color-a-serve); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 4px; }
+.a .phase { position: absolute; left: 50%; top: 34px; transform: translateX(-50%); font-size: 15px; font-weight: 800; letter-spacing: 0.12em; color: var(--color-black); background: var(--color-a-us); padding: 1px 10px; border-radius: 4px; }
+
+/* ---------- B · Campos de cor ---------- */
+.b { font-family: var(--font-b); gap: 6px; padding: 0 6px 6px; }
+.b .status { padding-left: 20px; padding-right: 20px; }
+.b .half { border-radius: 30px; padding: 0 22px; }
+.b .half:last-child { border-radius: 30px 30px 42px 42px; }
+.b .us { background: var(--color-b-us); color: var(--color-b-us-ink); }
+.b .them { background: var(--color-b-them); color: var(--color-b-them-ink); }
+.b .team { display: flex; flex-direction: column; line-height: 1.05; }
+.b .label { font-size: 19px; font-weight: 800; }
+.b .games { font-size: 16px; font-weight: 700; opacity: 0.8; }
+.b .pts { font-size: 74px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1; }
+.b .serve { display: inline-flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 800; margin-top: 4px; }
+.b .ball { width: 11px; height: 11px; border-radius: 50%; background: currentColor; }
+.b .phase { font-size: 14px; font-weight: 900; letter-spacing: 0.06em; color: var(--color-white); text-align: center; height: 0; position: relative; top: -4px; }
+
+/* ---------- C · Austero ---------- */
+.c { font-family: var(--font-c); }
+.c .half { justify-content: flex-start; gap: 18px; }
+.c .half + .half::before { content: ""; position: absolute; left: 26px; right: 26px; top: 0; border-top: 1px solid var(--color-grey-3); }
+.c .pts { font-size: 92px; font-weight: 300; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; width: 128px; line-height: 1; }
+.c .team { display: flex; flex-direction: column; line-height: 1.2; }
+.c .label { font-size: 15px; font-weight: 500; color: var(--color-grey-2); }
+.c .games { font-size: 26px; font-weight: 700; }
+.c .serve { font-size: 14px; font-weight: 700; color: var(--color-c-accent); margin-top: 2px; }
+.c .them .pts { color: var(--color-grey-1); }
+.c .phase { position: absolute; right: 26px; top: 14px; font-size: 15px; font-weight: 700; color: var(--color-c-accent); }
+
+/* ---------- telas comuns: lista, confirmação, resultado ---------- */
+.body { flex: 1; padding: 6px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.title { font-size: 20px; font-weight: 700; padding: 0 8px 2px; }
+.sub { font-size: 15px; color: var(--color-grey-1); padding: 0 8px; }
+.opt { border-radius: 22px; background: var(--color-grey-4); padding: 0 18px; height: 52px; display: flex; align-items: center; justify-content: space-between; font-size: 19px; font-weight: 600; }
+.opt small { font-size: 14px; color: var(--color-grey-2); font-weight: 500; }
+.opt.pre { outline: 2px solid currentColor; }
+.btns { display: flex; gap: 8px; margin-top: auto; }
+.btn { flex: 1; height: 52px; border-radius: 26px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; background: var(--color-grey-3); color: var(--color-white); }
+.diff { font-variant-numeric: tabular-nums; font-size: 34px; font-weight: 800; padding: 6px 8px; display: flex; align-items: baseline; gap: 10px; }
+.diff .arrow { font-size: 20px; color: var(--color-grey-2); }
+.diff .old { color: var(--color-grey-2); text-decoration: line-through; text-decoration-thickness: 2px; }
+.sets { display: flex; gap: 14px; padding: 4px 8px; font-variant-numeric: tabular-nums; }
+.sets div { font-size: 46px; font-weight: 800; line-height: 1; }
+.meta { font-size: 15px; color: var(--color-grey-1); padding: 0 8px; }
+
+.a .title, .a .opt, .a .btn, .a .diff, .a .sets div { font-family: var(--font-a); }
+.a .title { text-transform: uppercase; letter-spacing: 0.06em; font-size: 22px; }
+.a .opt.pre { color: var(--color-a-us); }
+.a .btn.primary { background: var(--color-a-us); color: var(--color-black); }
+.a .win { color: var(--color-a-us); }
+.b .body { padding: 6px 12px 16px; }
+.b .opt { border-radius: 26px; font-weight: 800; }
+.b .opt.us-o { background: var(--color-b-us); color: var(--color-b-us-ink); }
+.b .opt.them-o { background: var(--color-b-them); color: var(--color-b-them-ink); }
+.b .opt.us-o small, .b .opt.them-o small { color: inherit; opacity: 0.7; }
+.b .opt.pre { outline: 3px solid var(--color-white); outline-offset: 2px; }
+.b .btn.primary { background: var(--color-b-us); color: var(--color-b-us-ink); }
+.b .win { color: var(--color-b-us); }
+.c .title { font-weight: 500; }
+.c .opt { background: transparent; border: 1px solid var(--color-grey-3); font-weight: 500; }
+.c .opt.pre { outline: none; border-color: var(--color-c-accent); color: var(--color-c-accent); }
+.c .btn.primary { background: var(--color-white); color: var(--color-black); }
+.c .diff, .c .sets div { font-weight: 300; }
+.c .win { color: var(--color-white); }
+
+.notes { max-width: 72rem; margin: 0 auto; border-top: 1px solid var(--color-page-rule); padding-top: var(--space-lg); }
+.notes h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: var(--space-sm); }
+.notes ul { padding-left: 1.2em; color: var(--color-page-mute); max-width: 70ch; }
+.notes li + li { margin-top: var(--space-xs); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>BT Score: três caminhos para o placar</h1>
+  <p>Cada alternativa mostra as mesmas cinco telas no tamanho lógico do Apple Watch de 44 mm, ampliado 1,5×. Toque na metade de cima marca ponto para Nós; na de baixo, para Eles. Escolha uma alternativa, ou misture partes, e ela vai para o Pen.</p>
+</header>
+
+<!-- ======================= A ======================= -->
+<section class="alt">
+  <h2>A · Estádio</h2>
+  <p class="why">Números condensados enormes, como um placar eletrônico. Âmbar marca o nosso lado e o sacador; o adversário fica em branco. É a leitura mais rápida a distância, e a mais legível sob sol. Fonte no relógio: SF Compact com largura condensada.</p>
+  <div class="row">
+    <figure><div class="screen a">
+      <div class="status"><span></span><span>10:42</span></div>
+      <div class="half us"><div class="team"><span class="label">Nós</span><span class="games">3</span><span class="serve">● Parceiro</span></div><span class="pts">30</span></div>
+      <div class="half them"><div class="team"><span class="label">Eles</span><span class="games">2</span></div><span class="pts">15</span></div>
+    </div><figcaption>Placar · game normal</figcaption></figure>
+
+    <figure><div class="screen a">
+      <div class="status"><span></span><span>11:08</span></div>
+      <span class="phase">TIE-BREAK</span>
+      <div class="half us"><div class="team"><span class="label">Nós</span><span class="games">6</span></div><span class="pts">5</span></div>
+      <div class="half them"><div class="team"><span class="label">Eles</span><span class="games">6</span><span class="serve">● Adv. 1 · 2 de 2</span></div><span class="pts">4</span></div>
+    </div><figcaption>Placar · tie-break</figcaption></figure>
+
+    <figure><div class="screen a">
+      <div class="status"><span></span><span>10:01</span></div>
+      <div class="body">
+        <div class="title">Quem saca?</div>
+        <div class="opt pre">Eu <small>Nós</small></div>
+        <div class="opt">Parceiro <small>Nós</small></div>
+        <div class="opt">Adversário 1 <small>Eles</small></div>
+        <div class="opt">Adversário 2 <small>Eles</small></div>
+      </div>
+    </div><figcaption>Início do set · rola para ver todos</figcaption></figure>
+
+    <figure><div class="screen a">
+      <div class="status"><span></span><span>10:43</span></div>
+      <div class="body">
+        <div class="title">Desfazer?</div>
+        <div class="sub">Último ponto: Nós</div>
+        <div class="diff"><span class="old">30-15</span><span class="arrow">→</span><span>15-15</span></div>
+        <div class="btns"><div class="btn">Não</div><div class="btn primary">Desfazer</div></div>
+      </div>
+    </div><figcaption>Confirmação · após girar a Crown</figcaption></figure>
+
+    <figure><div class="screen a">
+      <div class="status"><span></span><span>11:20</span></div>
+      <div class="body">
+        <div class="title win">Vitória</div>
+        <div class="sets"><div class="win">7-6</div></div>
+        <div class="meta">10 de out · 52 min · tie-break 10-9</div>
+        <div class="btns"><div class="btn primary">Concluir</div></div>
+      </div>
+    </div><figcaption>Resultado</figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================= B ======================= -->
+<section class="alt">
+  <h2>B · Campos de cor</h2>
+  <p class="why">Cada metade é um bloco de cor sólida: lima para Nós, azul piscina para Eles. A área de toque fica explícita, e dá para saber de que lado está o ponto pela cor, sem ler. É a mais amigável e a mais fácil de acertar com o dedo suado, mas gasta mais bateria no OLED. Fonte no relógio: SF Compact Rounded.</p>
+  <div class="row">
+    <figure><div class="screen b">
+      <div class="status"><span></span><span>10:42</span></div>
+      <div class="half us"><div class="team"><span class="label">Nós</span><span class="games">games 3</span><span class="serve"><i class="ball"></i>Parceiro</span></div><span class="pts">30</span></div>
+      <div class="half them"><div class="team"><span class="label">Eles</span><span class="games">games 2</span></div><span class="pts">15</span></div>
+    </div><figcaption>Placar · game normal</figcaption></figure>
+
+    <figure><div class="screen b">
+      <div class="status"><span>TIE-BREAK</span><span>11:08</span></div>
+      <div class="half us"><div class="team"><span class="label">Nós</span><span class="games">games 6</span></div><span class="pts">5</span></div>
+      <div class="half them"><div class="team"><span class="label">Eles</span><span class="games">games 6</span><span class="serve"><i class="ball"></i>Adv. 1 · 2/2</span></div><span class="pts">4</span></div>
+    </div><figcaption>Placar · tie-break</figcaption></figure>
+
+    <figure><div class="screen b">
+      <div class="status"><span></span><span>10:01</span></div>
+      <div class="body">
+        <div class="title">Quem saca?</div>
+        <div class="opt us-o pre">Eu</div>
+        <div class="opt us-o">Parceiro</div>
+        <div class="opt them-o">Adversário 1</div>
+        <div class="opt them-o">Adversário 2</div>
+      </div>
+    </div><figcaption>Início do set · cor indica a dupla</figcaption></figure>
+
+    <figure><div class="screen b">
+      <div class="status"><span></span><span>10:43</span></div>
+      <div class="body">
+        <div class="title">Desfazer?</div>
+        <div class="sub">Último ponto: Nós</div>
+        <div class="diff"><span class="old">30-15</span><span class="arrow">→</span><span>15-15</span></div>
+        <div class="btns"><div class="btn">Não</div><div class="btn primary">Desfazer</div></div>
+      </div>
+    </div><figcaption>Confirmação · após girar a Crown</figcaption></figure>
+
+    <figure><div class="screen b">
+      <div class="status"><span></span><span>11:20</span></div>
+      <div class="body">
+        <div class="title win">Vitória!</div>
+        <div class="sets"><div>7-6</div></div>
+        <div class="meta">10 de out · 52 min · tie-break 10-9</div>
+        <div class="btns"><div class="btn primary">Concluir</div></div>
+      </div>
+    </div><figcaption>Resultado</figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================= C ======================= -->
+<section class="alt">
+  <h2>C · Austero</h2>
+  <p class="why">Preto, branco e cinza; números finos e grandes à esquerda, games e sacador ao lado. Uma única cor, laranja, aparece só para o sacador e o tie-break. É a mais elegante e a mais econômica em bateria, mas a mais fraca sob sol forte e com o pulso em movimento. Fonte no relógio: SF Compact em peso light.</p>
+  <div class="row">
+    <figure><div class="screen c">
+      <div class="status"><span></span><span>10:42</span></div>
+      <div class="half us"><span class="pts">30</span><div class="team"><span class="label">Nós</span><span class="games">3</span><span class="serve">saca · Parceiro</span></div></div>
+      <div class="half them"><span class="pts">15</span><div class="team"><span class="label">Eles</span><span class="games">2</span></div></div>
+    </div><figcaption>Placar · game normal</figcaption></figure>
+
+    <figure><div class="screen c">
+      <div class="status"><span></span><span>11:08</span></div>
+      <span class="phase">tie-break</span>
+      <div class="half us"><span class="pts">5</span><div class="team"><span class="label">Nós</span><span class="games">6</span></div></div>
+      <div class="half them"><span class="pts">4</span><div class="team"><span class="label">Eles</span><span class="games">6</span><span class="serve">saca · Adv. 1 (2 de 2)</span></div></div>
+    </div><figcaption>Placar · tie-break</figcaption></figure>
+
+    <figure><div class="screen c">
+      <div class="status"><span></span><span>10:01</span></div>
+      <div class="body">
+        <div class="title">Quem saca?</div>
+        <div class="opt pre">Eu <small>Nós</small></div>
+        <div class="opt">Parceiro <small>Nós</small></div>
+        <div class="opt">Adversário 1 <small>Eles</small></div>
+        <div class="opt">Adversário 2 <small>Eles</small></div>
+      </div>
+    </div><figcaption>Início do set</figcaption></figure>
+
+    <figure><div class="screen c">
+      <div class="status"><span></span><span>10:43</span></div>
+      <div class="body">
+        <div class="title">Desfazer?</div>
+        <div class="sub">Último ponto: Nós</div>
+        <div class="diff"><span class="old">30-15</span><span class="arrow">→</span><span>15-15</span></div>
+        <div class="btns"><div class="btn">Não</div><div class="btn primary">Desfazer</div></div>
+      </div>
+    </div><figcaption>Confirmação · após girar a Crown</figcaption></figure>
+
+    <figure><div class="screen c">
+      <div class="status"><span></span><span>11:20</span></div>
+      <div class="body">
+        <div class="title win">Vitória</div>
+        <div class="sets"><div>7-6</div></div>
+        <div class="meta">10 de out · 52 min · tie-break 10-9</div>
+        <div class="btns"><div class="btn primary">Concluir</div></div>
+      </div>
+    </div><figcaption>Resultado</figcaption></figure>
+  </div>
+</section>
+
+<section class="notes">
+  <h2>O que vale para as três</h2>
+  <ul>
+    <li>Telas de nova partida, histórico e retomada ficam para o Pen, depois da escolha. Elas seguem o mesmo sistema das telas de lista.</li>
+    <li>Na tela "Quem saca?", a opção pré-selecionada (contorno) é a dupla que recebeu o primeiro ponto do tie-break anterior.</li>
+    <li>O "2 de 2" no tie-break indica que é o segundo dos dois pontos seguidos daquele sacador. Evitei "2º saque" porque no tênis isso significa o saque depois de uma falta.</li>
+    <li>O relógio de status no topo é desenhado pelo watchOS; aparece aqui só para mostrar o espaço que ele ocupa.</li>
+  </ul>
+</section>
+
+</body>
+</html>
