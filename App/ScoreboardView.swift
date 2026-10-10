@@ -3,19 +3,30 @@ import ScoreEngine
 
 /// Placar dividido: tocar na metade de cima marca ponto para Nós, na de baixo para Eles.
 struct ScoreboardView: View {
-    @State private var match = Match()
+    let state: MatchState
+    let onPoint: (Team) -> Void
 
     var body: some View {
-        let state = match.state
-        VStack(spacing: 0) {
-            TeamHalf(team: .us, state: state) { match.record(.point(.us)) }
-            Rectangle()
-                .fill(Color.rule)
-                .frame(height: 1)
-                .padding(.horizontal, 16)
-            TeamHalf(team: .them, state: state) { match.record(.point(.them)) }
+        NavigationStack {
+            VStack(spacing: 0) {
+                TeamHalf(team: .us, state: state) { onPoint(.us) }
+                Rectangle()
+                    .fill(Color.rule)
+                    .frame(height: 1)
+                    .padding(.horizontal, 16)
+                TeamHalf(team: .them, state: state) { onPoint(.them) }
+            }
+            .background(Color.black)
+            .toolbar {
+                if state.phase == .tieBreak {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Text("tie-break")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(Color.accent)
+                    }
+                }
+            }
         }
-        .background(Color.black)
     }
 }
 
@@ -27,7 +38,7 @@ private struct TeamHalf: View {
     var body: some View {
         Button(action: onPoint) {
             HStack(spacing: 10) {
-                Text(verbatim: state.gameScore(for: team).display)
+                Text(verbatim: points)
                     .font(.system(size: 64, weight: .light))
                     .tracking(-2.5)
                     .monospacedDigit()
@@ -50,6 +61,14 @@ private struct TeamHalf: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Toque para marcar ponto")
+    }
+
+    /// Pontos do game (0-15-30-40) ou, no tie-break, a contagem numérica.
+    private var points: String {
+        switch state.phase {
+        case .game: state.gameScore(for: team).display
+        case .tieBreak: "\(state.tieBreakPoints(for: team))"
+        }
     }
 }
 

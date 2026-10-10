@@ -1,15 +1,14 @@
 {
-  "sourceLanguage" : "pt-BR",
-  "strings" : {
-    "Eles" : {
-
-    },
-    "Nós" : {
-
-    },
-    "Toque para marcar ponto" : {
-
-    }
+  "sourceLanguage": "pt-BR",
+  "strings": {
+    "%@ · %@": {},
+    "Concluir": {},
+    "Derrota": {},
+    "Eles": {},
+    "Nós": {},
+    "Toque para marcar ponto": {},
+    "Vitória": {},
+    "tie-break": {}
   },
-  "version" : "1.0"
+  "version": "1.0"
 }
