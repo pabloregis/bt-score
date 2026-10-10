@@ -29,6 +29,7 @@ private struct TeamHalf: View {
             HStack(spacing: 10) {
                 Text(verbatim: state.gameScore(for: team).display)
                     .font(.system(size: 64, weight: .light))
+                    .tracking(-2.5)
                     .monospacedDigit()
                     .foregroundStyle(team == .them ? Color.ink2 : Color.white)
                     .frame(width: 84, alignment: .leading)

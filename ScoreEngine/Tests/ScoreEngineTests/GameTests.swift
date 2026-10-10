@@ -40,7 +40,7 @@ struct GameTests {
 
     @Test("no 40-40, o ponto seguinte decide o game", arguments: [Team.us, Team.them])
     func decidingPoint(winner: Team) {
-        let loser: Team = winner == us ? them : us
+        let loser = winner.opponent
         let state = match([us, us, us, them, them, them, winner]).state
         #expect(state.games(for: winner) == 1)
         #expect(state.games(for: loser) == 0)
@@ -55,6 +55,12 @@ struct GameTests {
         #expect(state.games(for: them) == 1)
         #expect(state.gameScore(for: us) == .love)
         #expect(state.gameScore(for: them) == .thirty)
+    }
+
+    @Test("a outra dupla de Nós é Eles, e vice-versa")
+    func opponent() {
+        #expect(us.opponent == them)
+        #expect(them.opponent == us)
     }
 
     @Test("partida nova usa o formato set único, e o formato é preservado")
