@@ -12,6 +12,8 @@ O Swift no WSL vem do `swiftly` e só entra no PATH de shells de login. Em shell
 
 O app SwiftUI não compila no Linux. Ele é verificado pelo job macOS do CI (`.github/workflows/ci.yml`), que gera o projeto e compila o target watchOS a cada push.
 
+O CI não roda o app. Ao entregar um ticket com mudança de interface ou de comportamento no relógio, acrescente o que só dá para conferir no aparelho como critério na PAB-15 (verificação no relógio com Mac emprestado).
+
 ## Agent skills
 
 ### Issue tracker
