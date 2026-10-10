@@ -1,0 +1,35 @@
+name: BTScore
+options:
+  bundleIdPrefix: com.pabloregis
+  developmentLanguage: pt-BR
+  deploymentTarget:
+    watchOS: "26.0"
+packages:
+  ScoreEngine:
+    path: ScoreEngine
+targets:
+  BTScore:
+    type: application
+    platform: watchOS
+    sources:
+      - App
+    dependencies:
+      - package: ScoreEngine
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.pabloregis.btscore
+        PRODUCT_NAME: BTScore
+        MARKETING_VERSION: 0.1.0
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "6.0"
+        GENERATE_INFOPLIST_FILE: "YES"
+        INFOPLIST_KEY_CFBundleDisplayName: BT Score
+        INFOPLIST_KEY_WKApplication: "YES"
+        INFOPLIST_KEY_WKWatchOnly: "YES"
+        LOCALIZATION_PREFERS_STRING_CATALOGS: "YES"
+        SWIFT_EMIT_LOC_STRINGS: "YES"
+schemes:
+  BTScore:
+    build:
+      targets:
+        BTScore: all
