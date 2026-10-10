@@ -9,6 +9,11 @@ struct UndoView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
+            if preview.isTieBreak {
+                Text("tie-break")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(Color.accent)
+            }
             Text("Desfazer?")
                 .font(.system(size: 18, weight: .medium))
                 .foregroundStyle(Color.white)

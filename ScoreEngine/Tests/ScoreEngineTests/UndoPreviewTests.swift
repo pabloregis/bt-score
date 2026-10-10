@@ -18,7 +18,7 @@ struct UndoPreviewTests {
     @Test("no tie-break mostra a contagem numérica")
     func tieBreak() {
         let preview = match(sixAll + [us, them, us]).undoPreview
-        #expect(preview == UndoPreview(team: us, before: "2-1", after: "1-1"))
+        #expect(preview == UndoPreview(team: us, before: "2-1", after: "1-1", isTieBreak: true))
     }
 
     @Test("o ponto que fechou o tie-break mostra o set voltando a 6-6")
@@ -30,5 +30,11 @@ struct UndoPreviewTests {
     @Test("com o log vazio não há prévia")
     func emptyLog() {
         #expect(Match().undoPreview == nil)
+    }
+
+    @Test("o ponto que fechou o set fora do tie-break mostra os games")
+    func setPoint() {
+        let preview = match(games(us, us, us, them, us, them, us, them) + game(us)).undoPreview
+        #expect(preview == UndoPreview(team: us, before: "6-3", after: "5-3"))
     }
 }

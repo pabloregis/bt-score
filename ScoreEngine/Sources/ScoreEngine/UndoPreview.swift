@@ -6,11 +6,14 @@ public struct UndoPreview: Hashable, Sendable {
     public let before: String
     /// Placar depois de desfazer.
     public let after: String
+    /// O placar é a contagem do tie-break, e não pontos de game ou games.
+    public let isTieBreak: Bool
 
-    public init(team: Team, before: String, after: String) {
+    public init(team: Team, before: String, after: String, isTieBreak: Bool = false) {
         self.team = team
         self.before = before
         self.after = after
+        self.isTieBreak = isTieBreak
     }
 }
 
@@ -23,9 +26,9 @@ extension Match {
         let before = state
         let after = undone.state
         // Quando o ponto fechou um game, os pontos zeram; os games mostram melhor o que muda.
-        if before.gamesFormatted != after.gamesFormatted {
-            return UndoPreview(team: team, before: before.gamesFormatted, after: after.gamesFormatted)
+        if before.gamesLine != after.gamesLine {
+            return UndoPreview(team: team, before: before.gamesLine, after: after.gamesLine)
         }
-        return UndoPreview(team: team, before: before.pointsFormatted, after: after.pointsFormatted)
+        return UndoPreview(team: team, before: before.pointsLine, after: after.pointsLine, isTieBreak: before.phase == .tieBreak)
     }
 }

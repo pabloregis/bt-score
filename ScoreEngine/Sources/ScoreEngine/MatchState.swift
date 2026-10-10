@@ -57,12 +57,12 @@ public struct MatchState: Hashable, Sendable {
     }
 
     /// Pontos das duas duplas, do ponto de vista de Nós: "30-15".
-    var pointsFormatted: String {
+    var pointsLine: String {
         "\(pointsFormatted(for: .us))-\(pointsFormatted(for: .them))"
     }
 
     /// Games do set em andamento, do ponto de vista de Nós: "3-2".
-    var gamesFormatted: String {
+    var gamesLine: String {
         "\(games(for: .us))-\(games(for: .them))"
     }
 

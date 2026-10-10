@@ -13,6 +13,7 @@ struct MatchView: View {
     @State private var finishedAt: Date?
     @State private var undoPreview: UndoPreview?
     @State private var crown = 0.0
+    @FocusState private var crownFocused: Bool
 
     var body: some View {
         if let undoPreview {
@@ -25,6 +26,9 @@ struct MatchView: View {
         } else {
             matchScreen
                 .focusable()
+                .focusEffectDisabled()
+                .focused($crownFocused)
+                .onAppear { crownFocused = true }
                 .digitalCrownRotation(
                     $crown,
                     from: -Self.undoCrownThreshold * 2,
