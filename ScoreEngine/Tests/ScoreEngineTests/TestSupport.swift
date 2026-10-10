@@ -18,3 +18,6 @@ func game(_ team: Team) -> [Team] {
 func games(_ teams: Team...) -> [Team] {
     teams.flatMap(game)
 }
+
+/// Games alternados até 6-6.
+let sixAll = games(us, them, us, them, us, them, us, them, us, them, us, them)

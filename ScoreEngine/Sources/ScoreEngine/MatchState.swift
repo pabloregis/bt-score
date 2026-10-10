@@ -12,6 +12,11 @@ public struct MatchState: Hashable, Sendable {
         var us = TeamScore()
         var them = TeamScore()
 
+        /// Placar do tie-break em andamento, do ponto de vista de Nós.
+        var tieBreakScore: TieBreakScore {
+            TieBreakScore(us: us.tieBreakPoints, them: them.tieBreakPoints)
+        }
+
         subscript(team: Team) -> TeamScore {
             get { team == .us ? us : them }
             set { if team == .us { us = newValue } else { them = newValue } }
@@ -28,7 +33,7 @@ public struct MatchState: Hashable, Sendable {
     public private(set) var winner: Team?
     public private(set) var phase: Phase = .game
 
-    public var isOver: Bool { winner != nil }
+    public var isOver: Bool { phase == .finished }
 
     init(format: MatchFormat) {
         self.format = format
@@ -68,7 +73,7 @@ public struct MatchState: Hashable, Sendable {
         )
         if won {
             scores[team].games += 1
-            finishSet(winner: team, tieBreak: TieBreakScore(us: scores.us.tieBreakPoints, them: scores.them.tieBreakPoints))
+            finishSet(winner: team, tieBreak: scores.tieBreakScore)
         }
     }
 

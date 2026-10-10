@@ -7,24 +7,22 @@ struct ScoreboardView: View {
     let onPoint: (Team) -> Void
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                TeamHalf(team: .us, state: state) { onPoint(.us) }
-                Rectangle()
-                    .fill(Color.rule)
-                    .frame(height: 1)
+        VStack(spacing: 0) {
+            TeamHalf(team: .us, state: state) { onPoint(.us) }
+            Rectangle()
+                .fill(Color.rule)
+                .frame(height: 1)
+                .padding(.horizontal, 16)
+            TeamHalf(team: .them, state: state) { onPoint(.them) }
+        }
+        .background(Color.black)
+        .overlay(alignment: .topLeading) {
+            if state.phase == .tieBreak {
+                Text("tie-break")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(Color.accent)
                     .padding(.horizontal, 16)
-                TeamHalf(team: .them, state: state) { onPoint(.them) }
-            }
-            .background(Color.black)
-            .toolbar {
-                if state.phase == .tieBreak {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Text("tie-break")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(Color.accent)
-                    }
-                }
+                    .allowsHitTesting(false)
             }
         }
     }

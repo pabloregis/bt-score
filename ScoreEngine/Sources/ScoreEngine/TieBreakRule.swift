@@ -8,6 +8,9 @@ public struct TieBreakRule: Hashable, Sendable, Codable {
     public let cap: Int?
 
     public init(target: Int, margin: Int, cap: Int?) {
+        precondition(target > 0, "o alvo do tie-break precisa ser positivo")
+        precondition(margin > 0, "a vantagem mínima do tie-break precisa ser positiva")
+        precondition(cap.map { $0 >= target } ?? true, "o teto do tie-break não pode ser menor que o alvo")
         self.target = target
         self.margin = margin
         self.cap = cap

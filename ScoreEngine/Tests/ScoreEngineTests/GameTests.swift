@@ -1,7 +1,6 @@
 import Testing
 import ScoreEngine
 
-
 @Suite("Game no-ad")
 struct GameTests {
     @Test("partida nova começa em 0-0, sem games")

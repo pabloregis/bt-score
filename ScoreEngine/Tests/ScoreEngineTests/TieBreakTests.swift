@@ -1,9 +1,6 @@
 import Testing
 import ScoreEngine
 
-/// Games alternados até 6-6.
-let sixAll = games(us, them, us, them, us, them, us, them, us, them, us, them)
-
 @Suite("Tie-break do set")
 struct TieBreakTests {
     @Test("antes do 6-6 a fase é game normal")
