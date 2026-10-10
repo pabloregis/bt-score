@@ -15,4 +15,14 @@ public enum GameScore: Hashable, Sendable {
         case .forty: nil
         }
     }
+
+    /// Como o jogador lê: "0", "15", "30" ou "40".
+    public var formatted: String {
+        switch self {
+        case .love: "0"
+        case .fifteen: "15"
+        case .thirty: "30"
+        case .forty: "40"
+        }
+    }
 }
