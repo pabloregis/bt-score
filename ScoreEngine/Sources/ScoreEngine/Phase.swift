@@ -4,4 +4,6 @@ public enum Phase: Hashable, Sendable {
     case game
     /// Tie-break do set, com pontos contados em números.
     case tieBreak
+    /// A partida acabou.
+    case finished
 }

@@ -24,6 +24,13 @@ struct SetTests {
         #expect(sevenFive.sets == [SetScore(us: 5, them: 7)])
     }
 
+    @Test("depois do fim, a fase é encerrada, inclusive quando o fim vem no tie-break")
+    func finishedPhase() {
+        #expect(match(games(us, us, us, us, us, us)).state.phase == .finished)
+        let sixAll = games(us, them, us, them, us, them, us, them, us, them, us, them)
+        #expect(match(sixAll + Array(repeating: us, count: 7)).state.phase == .finished)
+    }
+
     @Test("pontos depois do fim da partida não mudam o placar")
     func pointsAfterEndIgnored() {
         let finished = games(us, us, us, us, us, us)

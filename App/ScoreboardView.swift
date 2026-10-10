@@ -66,7 +66,7 @@ private struct TeamHalf: View {
     /// Pontos do game (0-15-30-40) ou, no tie-break, a contagem numérica.
     private var points: String {
         switch state.phase {
-        case .game: state.gameScore(for: team).display
+        case .game, .finished: state.gameScore(for: team).display
         case .tieBreak: "\(state.tieBreakPoints(for: team))"
         }
     }

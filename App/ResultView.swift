@@ -1,7 +1,7 @@
 import SwiftUI
 import ScoreEngine
 
-/// Fim da partida: vitória ou derrota, placar do ponto de vista de Nós, data e duração.
+/// Fim da partida: vitória ou derrota, placar do ponto de vista de Nós, data de início e duração.
 struct ResultView: View {
     let state: MatchState
     let startedAt: Date
@@ -9,10 +9,11 @@ struct ResultView: View {
     let onDone: () -> Void
 
     var body: some View {
+        let won = state.winner == .us
         VStack(alignment: .leading, spacing: 6) {
-            Text(state.winner == .us ? LocalizedStringKey("Vitória") : LocalizedStringKey("Derrota"))
+            Text(won ? LocalizedStringKey("Vitória") : LocalizedStringKey("Derrota"))
                 .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(state.winner == .us ? Color.white : Color.ink2)
+                .foregroundStyle(won ? Color.white : Color.ink2)
             ForEach(Array(state.sets.enumerated()), id: \.offset) { _, set in
                 HStack(alignment: .lastTextBaseline, spacing: 6) {
                     Text(verbatim: set.gamesFormatted)
@@ -27,7 +28,7 @@ struct ResultView: View {
                     }
                 }
             }
-            Text("\(finishedAt, format: .dateTime.day().month(.abbreviated)) · \(duration, format: .units(allowed: [.hours, .minutes], width: .abbreviated))")
+            Text("\(startedAt, format: .dateTime.day().month(.abbreviated)) · \(duration, format: .units(allowed: [.hours, .minutes], width: .abbreviated))")
                 .font(.system(size: 12))
                 .foregroundStyle(Color.ink3)
             Spacer(minLength: 0)

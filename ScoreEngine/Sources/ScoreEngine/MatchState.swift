@@ -7,11 +7,22 @@ public struct MatchState: Hashable, Sendable {
         var tieBreakPoints = 0
     }
 
+    /// O placar das duas duplas, acessado pela dupla.
+    private struct Scores: Hashable, Sendable {
+        var us = TeamScore()
+        var them = TeamScore()
+
+        subscript(team: Team) -> TeamScore {
+            get { team == .us ? us : them }
+            set { if team == .us { us = newValue } else { them = newValue } }
+        }
+    }
+
     private static let gamesToWinSet = 6
     private static let setMargin = 2
 
     private let format: MatchFormat
-    private var scores: [Team: TeamScore] = [.us: TeamScore(), .them: TeamScore()]
+    private var scores = Scores()
 
     public private(set) var sets: [SetScore] = []
     public private(set) var winner: Team?
@@ -24,15 +35,15 @@ public struct MatchState: Hashable, Sendable {
     }
 
     public func gameScore(for team: Team) -> GameScore {
-        scores[team]!.game
+        scores[team].game
     }
 
     public func games(for team: Team) -> Int {
-        scores[team]!.games
+        scores[team].games
     }
 
     public func tieBreakPoints(for team: Team) -> Int {
-        scores[team]!.tieBreakPoints
+        scores[team].tieBreakPoints
     }
 
     mutating func apply(_ event: MatchEvent) {
@@ -42,7 +53,7 @@ public struct MatchState: Hashable, Sendable {
             if phase == .tieBreak {
                 winTieBreakPoint(team)
             } else if let next = gameScore(for: team).next {
-                scores[team]!.game = next
+                scores[team].game = next
             } else {
                 winGame(team)
             }
@@ -50,26 +61,34 @@ public struct MatchState: Hashable, Sendable {
     }
 
     private mutating func winTieBreakPoint(_ team: Team) {
-        scores[team]!.tieBreakPoints += 1
-        let points = scores[team]!.tieBreakPoints
-        if format.setTieBreak.isWon(points: points, opponentPoints: scores[team.opponent]!.tieBreakPoints) {
-            scores[team]!.games += 1
-            let tieBreak = TieBreakScore(us: scores[.us]!.tieBreakPoints, them: scores[.them]!.tieBreakPoints)
-            sets.append(SetScore(us: scores[.us]!.games, them: scores[.them]!.games, tieBreak: tieBreak))
-            winner = team
+        scores[team].tieBreakPoints += 1
+        let won = format.setTieBreak.isWon(
+            points: scores[team].tieBreakPoints,
+            opponentPoints: scores[team.opponent].tieBreakPoints
+        )
+        if won {
+            scores[team].games += 1
+            finishSet(winner: team, tieBreak: TieBreakScore(us: scores.us.tieBreakPoints, them: scores.them.tieBreakPoints))
         }
     }
 
     private mutating func winGame(_ team: Team) {
-        scores[team]!.games += 1
-        scores[.us]!.game = .love
-        scores[.them]!.game = .love
-        let games = scores[team]!.games
-        if games >= Self.gamesToWinSet, games - scores[team.opponent]!.games >= Self.setMargin {
-            sets.append(SetScore(us: scores[.us]!.games, them: scores[.them]!.games))
-            winner = team
-        } else if games == Self.gamesToWinSet, scores[team.opponent]!.games == Self.gamesToWinSet {
+        scores[team].games += 1
+        scores.us.game = .love
+        scores.them.game = .love
+        let games = scores[team].games
+        let opponentGames = scores[team.opponent].games
+        if games >= Self.gamesToWinSet, games - opponentGames >= Self.setMargin {
+            finishSet(winner: team, tieBreak: nil)
+        } else if games == Self.gamesToWinSet, opponentGames == Self.gamesToWinSet {
             phase = .tieBreak
         }
+    }
+
+    /// Fecha o set. Em set único, fechar o set encerra a partida.
+    private mutating func finishSet(winner team: Team, tieBreak: TieBreakScore?) {
+        sets.append(SetScore(us: scores.us.games, them: scores.them.games, tieBreak: tieBreak))
+        winner = team
+        phase = .finished
     }
 }
