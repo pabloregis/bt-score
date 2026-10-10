@@ -6,6 +6,7 @@ Issues e specs deste repo vivem no Linear. Use o MCP oficial do Linear (servidor
 
 - **Nome**: Pablo Regis
 - **Chave**: `PAB` (identificadores como `PAB-123`)
+- **Projeto**: `BT Score`. Todo ticket novo deste repo vai para esse projeto.
 
 ## Convenções
 
