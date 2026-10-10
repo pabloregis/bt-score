@@ -4,7 +4,7 @@ import SwiftUI
 struct BTScoreApp: App {
     var body: some Scene {
         WindowGroup {
-            ScoreboardView()
+            MatchView()
         }
     }
 }

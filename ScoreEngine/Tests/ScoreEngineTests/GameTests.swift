@@ -1,15 +1,6 @@
 import Testing
 import ScoreEngine
 
-private let us = Team.us
-private let them = Team.them
-
-private func match(_ points: [Team]) -> Match {
-    var match = Match()
-    for team in points { match.record(.point(team)) }
-    return match
-}
-
 @Suite("Game no-ad")
 struct GameTests {
     @Test("partida nova começa em 0-0, sem games")

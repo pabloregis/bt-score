@@ -13,6 +13,6 @@ public struct Match: Hashable, Sendable {
     }
 
     public var state: MatchState {
-        events.reduce(into: MatchState()) { $0.apply($1) }
+        events.reduce(into: MatchState(format: format)) { $0.apply($1) }
     }
 }
