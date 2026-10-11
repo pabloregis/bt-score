@@ -16,6 +16,8 @@ struct MatchView: View {
     }
 
     private let store: MatchStore
+    private let historyFile: JSONFile<History>
+    @State private var history = History()
     @State private var workout = WorkoutSession()
     @State private var match = Match()
     @State private var finishedAt: Date?
@@ -26,9 +28,11 @@ struct MatchView: View {
     @State private var crown = 0.0
     @FocusState private var crownFocused: Bool
 
-    init(store: MatchStore = MatchStore()) {
-        self.store = store
+    init(directory: URL = .applicationSupportDirectory) {
+        store = MatchStore(directory: directory)
+        historyFile = JSONFile(name: "historico.json", directory: directory)
         _prompt = State(initialValue: store.load().map(Prompt.resume))
+        _history = State(initialValue: historyFile.load() ?? History())
     }
 
     var body: some View {
@@ -49,6 +53,10 @@ struct MatchView: View {
                     preview: preview,
                     onCancel: { prompt = nil },
                     onUndo: {
+                        // Desfazer o ponto final tira a partida do histórico: ela volta a estar em andamento.
+                        if match.state.isOver, let startedAt = match.startedAt {
+                            history.remove(startedAt: startedAt)
+                        }
                         match.undo()
                         finishedAt = nil
                         prompt = nil
@@ -73,7 +81,10 @@ struct MatchView: View {
             }
         }
         .sheet(isPresented: $showingHistory) {
-            HistoryView()
+            HistoryView(history: history)
+        }
+        .onChange(of: history) { _, history in
+            historyFile.save(history)
         }
         .onChange(of: match) { _, match in
             store.update(match)
@@ -134,6 +145,8 @@ struct MatchView: View {
                 if match.state.isOver {
                     finishedAt = now
                     workout.end()
+                    // Grava ao terminar, para não perder a partida se o app fechar no resultado.
+                    if let record = MatchRecord(match: match, finishedAt: now) { history.add(record) }
                 }
             }
         }
