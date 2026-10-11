@@ -49,6 +49,17 @@ private struct TeamHalf: View {
                     Text(state.games(for: team), format: .number)
                         .font(.system(size: 18, weight: .bold))
                         .foregroundStyle(Color.white)
+                    if let server = state.server, server.team == team {
+                        Group {
+                            Text("saca \(Text(server.shortLabel))")
+                            if let position = state.servePairPosition {
+                                Text("\(position) de 2")
+                            }
+                        }
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundStyle(Color.accent)
+                        .lineLimit(2)
+                    }
                 }
                 Spacer(minLength: 0)
             }
@@ -59,14 +70,5 @@ private struct TeamHalf: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Toque para marcar ponto")
-    }
-}
-
-extension Team {
-    var label: LocalizedStringKey {
-        switch self {
-        case .us: "Nós"
-        case .them: "Eles"
-        }
     }
 }

@@ -24,6 +24,14 @@ public struct Match: Hashable, Sendable, Codable {
         if events.isEmpty { startedAt = nil }
     }
 
+    /// O último evento é uma escolha de sacador; desfazê-lo só volta à escolha, sem confirmação.
+    public var lastEventIsServerChoice: Bool {
+        switch events.last {
+        case .openingServer, .firstServer: true
+        case .point, nil: false
+        }
+    }
+
     public var state: MatchState {
         events.reduce(into: MatchState(format: format)) { $0.apply($1) }
     }

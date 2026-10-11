@@ -89,14 +89,26 @@ struct MatchView: View {
             .onChange(of: crown) { _, value in
                 guard abs(value) >= Self.undoCrownThreshold else { return }
                 crown = 0
-                prompt = match.undoPreview.map(Prompt.undo)
+                if match.lastEventIsServerChoice {
+                    // Desfazer uma escolha de sacador só volta à escolha; nada se perde.
+                    match.undo()
+                } else {
+                    prompt = match.undoPreview.map(Prompt.undo)
+                }
             }
     }
 
     @ViewBuilder
     private var matchScreen: some View {
         let state = match.state
-        if let startedAt = match.startedAt, let finishedAt, state.isOver {
+        if let choice = state.awaitingServerChoice {
+            ServerChoiceView(choice: choice) { player in
+                switch choice {
+                case .openingServer: match.record(.openingServer(player))
+                case .firstServer: match.record(.firstServer(player))
+                }
+            }
+        } else if let startedAt = match.startedAt, let finishedAt, state.isOver {
             ResultView(state: state, startedAt: startedAt, finishedAt: finishedAt) {
                 match = Match()
                 self.finishedAt = nil

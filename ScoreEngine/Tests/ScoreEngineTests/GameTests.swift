@@ -64,6 +64,6 @@ struct GameTests {
 
     @Test("o log guarda os eventos na ordem em que foram registrados")
     func eventLog() {
-        #expect(match([us, them, us]).events == [.point(us), .point(them), .point(us)])
+        #expect(match([us, them, us]).events == [.openingServer(.me), .point(us), .point(them), .point(us)])
     }
 }
