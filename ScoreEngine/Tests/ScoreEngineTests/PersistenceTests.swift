@@ -32,4 +32,26 @@ struct PersistenceTests {
             try JSONDecoder().decode(Match.self, from: Data(legacy.utf8))
         }
     }
+
+    @Test("uma partida de set único salva antes do melhor de 3 continua carregando")
+    func legacySingleSetFormat() throws {
+        let legacy = #"{"setTieBreak":{"target":7,"margin":2,"cap":10}}"#
+        #expect(try JSONDecoder().decode(MatchFormat.self, from: Data(legacy.utf8)) == .singleSet)
+    }
+
+    @Test("o formato melhor de 3 sobrevive a salvar e carregar")
+    func roundTripBestOfThree() throws {
+        let saved = match(games(us, us, us, us, us, us), format: .bestOfThree)
+        let loaded = try roundTrip(saved)
+        #expect(loaded.format == .bestOfThree)
+        #expect(loaded.state == saved.state)
+    }
+
+    @Test("um formato salvo com zero sets é recusado em vez de derrubar o app")
+    func rejectsZeroSets() {
+        let invalid = #"{"setsToWin":0,"setTieBreak":{"target":7,"margin":2,"cap":10}}"#
+        #expect(throws: DecodingError.self) {
+            try JSONDecoder().decode(MatchFormat.self, from: Data(invalid.utf8))
+        }
+    }
 }

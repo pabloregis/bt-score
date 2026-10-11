@@ -1,7 +1,7 @@
 import SwiftUI
 import ScoreEngine
 
-/// Uma partida do início ao resultado. "Concluir" no resultado começa outra.
+/// Da tela de nova partida ao resultado. "Concluir" no resultado volta à nova partida.
 /// Girar a Digital Crown no placar ou no resultado pede para desfazer o último ponto.
 /// A partida em andamento fica gravada; ao abrir o app com uma salva, ele pergunta se quer retomá-la.
 struct MatchView: View {
@@ -19,6 +19,9 @@ struct MatchView: View {
     @State private var workout = WorkoutSession()
     @State private var match = Match()
     @State private var finishedAt: Date?
+    /// Na tela de nova partida, escolhendo o formato.
+    @State private var choosingFormat = true
+    @State private var showingHistory = false
     @State private var prompt: Prompt?
     @State private var crown = 0.0
     @FocusState private var crownFocused: Bool
@@ -34,10 +37,10 @@ struct MatchView: View {
             case .resume(let saved):
                 ResumeView(match: saved) {
                     store.clear()
-                    workout.end()
-                    prompt = nil
+                    startOver(endingWorkout: true)
                 } onResume: {
                     match = saved
+                    choosingFormat = false
                     if let startedAt = saved.startedAt { workout.start(matchStart: startedAt) }
                     prompt = nil
                 }
@@ -56,13 +59,21 @@ struct MatchView: View {
                 EndMatchView {
                     prompt = nil
                 } onEnd: {
-                    match = Match()
-                    workout.end()
-                    prompt = nil
+                    startOver(endingWorkout: true)
+                }
+            case nil where choosingFormat:
+                NewMatchView { format in
+                    match = Match(format: format)
+                    choosingFormat = false
+                } onHistory: {
+                    showingHistory = true
                 }
             case nil:
                 crownControlled(matchScreen)
             }
+        }
+        .sheet(isPresented: $showingHistory) {
+            HistoryView()
         }
         .onChange(of: match) { _, match in
             store.update(match)
@@ -89,7 +100,10 @@ struct MatchView: View {
             .onChange(of: crown) { _, value in
                 guard abs(value) >= Self.undoCrownThreshold else { return }
                 crown = 0
-                if match.lastEventIsServerChoice {
+                if match.events.isEmpty {
+                    // Antes de qualquer evento, a Crown volta à nova partida para trocar o formato.
+                    choosingFormat = true
+                } else if match.lastEventIsServerChoice {
                     // Desfazer uma escolha de sacador só volta à escolha; nada se perde.
                     match.undo()
                 } else {
@@ -102,13 +116,13 @@ struct MatchView: View {
     private var matchScreen: some View {
         let state = match.state
         if let choice = state.awaitingServerChoice {
-            ServerChoiceView(choice: choice) { player in
+            ServerChoiceView(choice: choice, suggested: state.suggestedOpeningServer) { player in
                 match.record(choice.event(for: player))
             }
         } else if let startedAt = match.startedAt, let finishedAt, state.isOver {
             ResultView(state: state, startedAt: startedAt, finishedAt: finishedAt) {
-                match = Match()
-                self.finishedAt = nil
+                // O treino já terminou com a partida.
+                startOver(endingWorkout: false)
             }
         } else {
             ScoreboardView(state: state) { team in
@@ -123,5 +137,14 @@ struct MatchView: View {
                 }
             }
         }
+    }
+
+    /// Volta à tela de nova partida, descartando a partida atual.
+    private func startOver(endingWorkout: Bool) {
+        if endingWorkout { workout.end() }
+        match = Match()
+        finishedAt = nil
+        choosingFormat = true
+        prompt = nil
     }
 }

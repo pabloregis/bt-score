@@ -25,10 +25,15 @@ extension Match {
         undone.undo()
         let before = state
         let after = undone.state
+        // Quando o ponto fechou um set, o placar do set em andamento já zerou; mostra o set fechado.
+        if let closed = before.sets.last, before.sets.count != after.sets.count {
+            let reopened = after.phase == .matchTieBreak ? "[\(after.pointsLine)]" : after.gamesLine
+            return UndoPreview(team: team, before: closed.gamesFormatted, after: reopened)
+        }
         // Quando o ponto fechou um game, os pontos zeram; os games mostram melhor o que muda.
         if before.gamesLine != after.gamesLine {
             return UndoPreview(team: team, before: before.gamesLine, after: after.gamesLine)
         }
-        return UndoPreview(team: team, before: before.pointsLine, after: after.pointsLine, isTieBreak: before.phase == .tieBreak)
+        return UndoPreview(team: team, before: before.pointsLine, after: after.pointsLine, isTieBreak: before.phase.isTieBreak)
     }
 }

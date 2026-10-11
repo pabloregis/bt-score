@@ -37,4 +37,17 @@ struct UndoPreviewTests {
         let preview = match(games(us, us, us, them, us, them, us, them) + game(us)).undoPreview
         #expect(preview == UndoPreview(team: us, before: "6-3", after: "5-3"))
     }
+
+    @Test("no melhor de 3, o ponto que fechou um set mostra o placar do set, não o set novo zerado")
+    func setPointBestOfThree() {
+        let preview = match(games(us, us, us, them, us, them, us, them) + game(us), format: .bestOfThree).undoPreview
+        #expect(preview == UndoPreview(team: us, before: "6-3", after: "5-3"))
+    }
+
+    @Test("no match tie-break mostra a contagem com o rótulo de tie-break")
+    func matchTieBreak() {
+        let sixLove = { (team: Team) in games(team, team, team, team, team, team) }
+        let preview = match(sixLove(us) + sixLove(them) + [us, us], format: .bestOfThree).undoPreview
+        #expect(preview == UndoPreview(team: us, before: "2-0", after: "1-0", isTieBreak: true))
+    }
 }

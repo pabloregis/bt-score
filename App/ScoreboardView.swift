@@ -17,8 +17,8 @@ struct ScoreboardView: View {
         }
         .background(Color.black)
         .overlay(alignment: .topLeading) {
-            if state.phase == .tieBreak {
-                Text("tie-break")
+            if state.phase.isTieBreak {
+                Text(state.phase == .matchTieBreak ? LocalizedStringKey("match tie-break") : LocalizedStringKey("tie-break"))
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(Color.accent)
                     .padding(.horizontal, 16)
@@ -49,6 +49,11 @@ private struct TeamHalf: View {
                     Text(state.games(for: team), format: .number)
                         .font(.system(size: 18, weight: .bold))
                         .foregroundStyle(Color.white)
+                    if state.format.setsToWin > 1 {
+                        Text("sets \(state.setsWon(for: team))")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(Color.ink3)
+                    }
                     if let server = state.server, server.team == team {
                         Group {
                             Text("saca \(Text(server.shortLabel))")

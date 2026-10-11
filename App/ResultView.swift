@@ -14,7 +14,7 @@ struct ResultView: View {
             Text(won ? LocalizedStringKey("Vitória") : LocalizedStringKey("Derrota"))
                 .font(.system(size: 16, weight: .medium))
                 .foregroundStyle(won ? Color.white : Color.ink2)
-            ForEach(Array(state.sets.enumerated()), id: \.offset) { _, set in
+            if let set = state.sets.first, state.sets.count == 1 {
                 HStack(alignment: .lastTextBaseline, spacing: 6) {
                     Text(verbatim: set.gamesFormatted)
                         .font(.system(size: 48, weight: .light))
@@ -27,6 +27,14 @@ struct ResultView: View {
                             .foregroundStyle(Color.ink3)
                     }
                 }
+            } else {
+                // Melhor de 3: os sets em sequência, "6-3 4-6 [10-7]", encolhendo para caber.
+                Text(verbatim: state.resultLine)
+                    .font(.system(size: 28, weight: .light))
+                    .monospacedDigit()
+                    .foregroundStyle(Color.white)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.6)
             }
             Text("\(startedAt, format: .dateTime.day().month(.abbreviated)) · \(duration, format: .units(allowed: [.hours, .minutes], width: .abbreviated))")
                 .font(.system(size: 12))
