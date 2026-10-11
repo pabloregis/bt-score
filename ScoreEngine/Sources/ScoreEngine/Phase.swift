@@ -4,6 +4,11 @@ public enum Phase: Hashable, Sendable {
     case game
     /// Tie-break do set, com pontos contados em números.
     case tieBreak
+    /// Match tie-break que substitui o set decisivo no melhor de 3, também contado em números.
+    case matchTieBreak
     /// A partida acabou.
     case finished
+
+    /// Pontos contados em números, com o rodízio de saque 1-2-2.
+    public var isTieBreak: Bool { self == .tieBreak || self == .matchTieBreak }
 }
