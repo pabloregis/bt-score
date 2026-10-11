@@ -130,7 +130,7 @@ public struct MatchState: Hashable, Sendable {
 
     /// Os sets em sequência, do ponto de vista de Nós: "6-3 4-6 [10-7]".
     public var resultLine: String {
-        sets.map(\.formatted).joined(separator: " ")
+        sets.resultLine
     }
 
     /// Onde a partida parou, para a tela de retomada: "Set 1 · games 4-3 · 30-15".
