@@ -117,18 +117,25 @@ public struct MatchState: Hashable, Sendable {
         return "Set \(sets.count + 1) · games \(gamesLine) · \(points)"
     }
 
+    /// Se o evento vale no estado atual: pontos só sem escolha pendente, escolhas só quando
+    /// são a aguardada, e nada depois do fim.
+    func accepts(_ event: MatchEvent) -> Bool {
+        switch event {
+        case .point: awaitingServerChoice == nil && !isOver
+        case .openingServer: awaitingServerChoice == .openingServer
+        case .firstServer(let player): awaitingServerChoice == .firstServer(of: player.team)
+        }
+    }
+
     mutating func apply(_ event: MatchEvent) {
-        guard !isOver else { return }
+        guard accepts(event) else { return }
         switch event {
         case .openingServer(let player):
-            guard awaitingServerChoice == .openingServer else { return }
             openingTeam = player.team
             firstServers[player.team] = player
         case .firstServer(let player):
-            guard awaitingServerChoice == .firstServer(of: player.team) else { return }
             firstServers[player.team] = player
         case .point(let team):
-            guard awaitingServerChoice == nil else { return }
             if phase == .tieBreak {
                 winTieBreakPoint(team)
             } else if let next = gameScore(for: team).next {

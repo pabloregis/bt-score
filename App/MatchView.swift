@@ -103,10 +103,7 @@ struct MatchView: View {
         let state = match.state
         if let choice = state.awaitingServerChoice {
             ServerChoiceView(choice: choice) { player in
-                switch choice {
-                case .openingServer: match.record(.openingServer(player))
-                case .firstServer: match.record(.firstServer(player))
-                }
+                match.record(choice.event(for: player))
             }
         } else if let startedAt = match.startedAt, let finishedAt, state.isOver {
             ResultView(state: state, startedAt: startedAt, finishedAt: finishedAt) {

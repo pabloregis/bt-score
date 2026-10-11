@@ -9,7 +9,7 @@ struct ServeTests {
         #expect(played.state.awaitingServerChoice == .openingServer)
         #expect(played.state.server == nil)
         played.record(.point(us))
-        #expect(played.state.gameScore(for: us) == .love)
+        #expect(played.events.isEmpty)
     }
 
     @Test("quem abre o set saca o primeiro game")
@@ -28,7 +28,8 @@ struct ServeTests {
         #expect(played.state.awaitingServerChoice == .firstServer(of: them))
         #expect(played.state.server == nil)
         played.record(.point(them))
-        #expect(played.state.gameScore(for: them) == .love)
+        played.record(.firstServer(.me))
+        #expect(played.events.count == 5)
         played.record(.firstServer(.opponent2))
         #expect(played.state.server == .opponent2)
     }
@@ -92,5 +93,11 @@ struct ServeTests {
         #expect(played.undoPreview == nil)
         #expect(played.lastEventIsServerChoice)
         #expect(!match([us]).lastEventIsServerChoice)
+    }
+
+    @Test("cada escolha vira o evento certo para o jogador escolhido")
+    func choiceEvent() {
+        #expect(ServerChoice.openingServer.event(for: .partner) == .openingServer(.partner))
+        #expect(ServerChoice.firstServer(of: them).event(for: .opponent2) == .firstServer(.opponent2))
     }
 }

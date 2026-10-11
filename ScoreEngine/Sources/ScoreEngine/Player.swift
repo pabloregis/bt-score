@@ -36,3 +36,13 @@ public enum ServerChoice: Hashable, Sendable {
     /// Qual jogador da dupla saca primeiro, na primeira vez que ela vai sacar no set.
     case firstServer(of: Team)
 }
+
+extension ServerChoice {
+    /// O evento que registra `player` como resposta a esta escolha.
+    public func event(for player: Player) -> MatchEvent {
+        switch self {
+        case .openingServer: .openingServer(player)
+        case .firstServer: .firstServer(player)
+        }
+    }
+}

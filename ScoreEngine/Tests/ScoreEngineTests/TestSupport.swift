@@ -21,11 +21,8 @@ func match(
 
 /// Responde a escolha de sacador pendente, se houver.
 func answerServerChoice(_ match: inout Match, opening: Player = .me, firstServer: Player = .opponent1) {
-    switch match.state.awaitingServerChoice {
-    case .openingServer: match.record(.openingServer(opening))
-    case .firstServer: match.record(.firstServer(firstServer))
-    case nil: break
-    }
+    guard let choice = match.state.awaitingServerChoice else { return }
+    match.record(choice.event(for: choice == .openingServer ? opening : firstServer))
 }
 
 /// Os 4 pontos seguidos que dão um game à dupla.
