@@ -1,9 +1,11 @@
 import SwiftUI
 import ScoreEngine
 
-/// "Quem saca?" no início do set, ou "Quem saca por Eles?" na primeira vez que a outra dupla saca.
+/// "Quem saca?" no início de cada set, ou "Quem saca por Eles?" na primeira vez que a outra dupla saca.
 struct ServerChoiceView: View {
     let choice: ServerChoice
+    /// Jogador pré-selecionado, destacado em laranja.
+    let suggested: Player?
     let onChoose: (Player) -> Void
 
     var body: some View {
@@ -18,7 +20,13 @@ struct ServerChoiceView: View {
                     .foregroundStyle(Color.ink3)
             }
             ForEach(players, id: \.self) { player in
-                option(player)
+                OptionRow(
+                    title: player.label,
+                    detail: choice == .openingServer ? player.team.label : nil,
+                    highlighted: player == suggested
+                ) {
+                    onChoose(player)
+                }
             }
             Spacer(minLength: 0)
         }
@@ -39,35 +47,5 @@ struct ServerChoiceView: View {
         case .openingServer: Player.allCases
         case .firstServer(of: let team): Player.players(of: team)
         }
-    }
-
-    /// No início do set, Eu vem destacado: é quem usa o relógio e o caso mais comum.
-    private func isHighlighted(_ player: Player) -> Bool {
-        choice == .openingServer && player == .me
-    }
-
-    private func option(_ player: Player) -> some View {
-        Button {
-            onChoose(player)
-        } label: {
-            HStack {
-                Text(player.label)
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundStyle(isHighlighted(player) ? Color.accent : Color.white)
-                Spacer(minLength: 4)
-                if case .openingServer = choice {
-                    Text(player.team.label)
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundStyle(Color.ink3)
-                }
-            }
-            .padding(.horizontal, 12)
-            .frame(maxWidth: .infinity, minHeight: 36)
-            .overlay(
-                Capsule().stroke(isHighlighted(player) ? Color.accent : Color.rule, lineWidth: isHighlighted(player) ? 2 : 1)
-            )
-            .contentShape(Capsule())
-        }
-        .buttonStyle(.plain)
     }
 }

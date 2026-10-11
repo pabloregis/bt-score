@@ -17,7 +17,8 @@ struct ResultView: View {
             ForEach(Array(state.sets.enumerated()), id: \.offset) { _, set in
                 HStack(alignment: .lastTextBaseline, spacing: 6) {
                     Text(verbatim: set.gamesFormatted)
-                        .font(.system(size: 48, weight: .light))
+                        // Com mais de um set, as linhas encolhem para caber com o botão.
+                        .font(.system(size: state.sets.count > 1 ? 26 : 48, weight: .light))
                         .tracking(-1.5)
                         .monospacedDigit()
                         .foregroundStyle(Color.white)

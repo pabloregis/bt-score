@@ -26,7 +26,7 @@ public struct MatchState: Hashable, Sendable {
     private static let gamesToWinSet = 6
     private static let setMargin = 2
 
-    private let format: MatchFormat
+    public let format: MatchFormat
     private var scores = Scores()
 
     public private(set) var sets: [SetScore] = []
