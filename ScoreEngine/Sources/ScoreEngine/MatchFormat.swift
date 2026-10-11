@@ -35,8 +35,12 @@ extension MatchFormat {
     /// Partidas salvas antes do melhor de 3 não têm `setsToWin`: são de set único.
     public init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        let setsToWin = try container.decodeIfPresent(Int.self, forKey: .setsToWin) ?? 1
+        guard setsToWin > 0 else {
+            throw DecodingError.dataCorruptedError(forKey: .setsToWin, in: container, debugDescription: "A partida precisa de ao menos um set")
+        }
         self.init(
-            setsToWin: try container.decodeIfPresent(Int.self, forKey: .setsToWin) ?? 1,
+            setsToWin: setsToWin,
             setTieBreak: try container.decode(TieBreakRule.self, forKey: .setTieBreak),
             matchTieBreak: try container.decodeIfPresent(TieBreakRule.self, forKey: .matchTieBreak)
         )

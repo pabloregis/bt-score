@@ -18,7 +18,7 @@ struct ScoreboardView: View {
         .background(Color.black)
         .overlay(alignment: .topLeading) {
             if state.phase.isTieBreak {
-                Text(state.phase == .matchTieBreak ? "match tie-break" : "tie-break")
+                Text(state.phase == .matchTieBreak ? LocalizedStringKey("match tie-break") : LocalizedStringKey("tie-break"))
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(Color.accent)
                     .padding(.horizontal, 16)

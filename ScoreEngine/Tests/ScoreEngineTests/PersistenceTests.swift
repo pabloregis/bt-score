@@ -46,4 +46,12 @@ struct PersistenceTests {
         #expect(loaded.format == .bestOfThree)
         #expect(loaded.state == saved.state)
     }
+
+    @Test("um formato salvo com zero sets é recusado em vez de derrubar o app")
+    func rejectsZeroSets() {
+        let invalid = #"{"setsToWin":0,"setTieBreak":{"target":7,"margin":2,"cap":10}}"#
+        #expect(throws: DecodingError.self) {
+            try JSONDecoder().decode(MatchFormat.self, from: Data(invalid.utf8))
+        }
+    }
 }

@@ -37,9 +37,7 @@ struct MatchView: View {
             case .resume(let saved):
                 ResumeView(match: saved) {
                     store.clear()
-                    workout.end()
-                    choosingFormat = true
-                    prompt = nil
+                    startOver(endingWorkout: true)
                 } onResume: {
                     match = saved
                     choosingFormat = false
@@ -61,10 +59,7 @@ struct MatchView: View {
                 EndMatchView {
                     prompt = nil
                 } onEnd: {
-                    match = Match()
-                    workout.end()
-                    choosingFormat = true
-                    prompt = nil
+                    startOver(endingWorkout: true)
                 }
             case nil where choosingFormat:
                 NewMatchView { format in
@@ -105,7 +100,10 @@ struct MatchView: View {
             .onChange(of: crown) { _, value in
                 guard abs(value) >= Self.undoCrownThreshold else { return }
                 crown = 0
-                if match.lastEventIsServerChoice {
+                if match.events.isEmpty {
+                    // Antes de qualquer evento, a Crown volta à nova partida para trocar o formato.
+                    choosingFormat = true
+                } else if match.lastEventIsServerChoice {
                     // Desfazer uma escolha de sacador só volta à escolha; nada se perde.
                     match.undo()
                 } else {
@@ -123,9 +121,8 @@ struct MatchView: View {
             }
         } else if let startedAt = match.startedAt, let finishedAt, state.isOver {
             ResultView(state: state, startedAt: startedAt, finishedAt: finishedAt) {
-                match = Match()
-                self.finishedAt = nil
-                choosingFormat = true
+                // O treino já terminou com a partida.
+                startOver(endingWorkout: false)
             }
         } else {
             ScoreboardView(state: state) { team in
@@ -140,5 +137,14 @@ struct MatchView: View {
                 }
             }
         }
+    }
+
+    /// Volta à tela de nova partida, descartando a partida atual.
+    private func startOver(endingWorkout: Bool) {
+        if endingWorkout { workout.end() }
+        match = Match()
+        finishedAt = nil
+        choosingFormat = true
+        prompt = nil
     }
 }
