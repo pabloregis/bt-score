@@ -100,4 +100,15 @@ struct ServeTests {
         #expect(ServerChoice.openingServer.event(for: .partner) == .openingServer(.partner))
         #expect(ServerChoice.firstServer(of: them).event(for: .opponent2) == .firstServer(.opponent2))
     }
+
+    @Test("registrar diz se o evento foi aceito")
+    func recordReportsAcceptance() {
+        var played = Match()
+        let pointBeforeChoice = played.record(.point(us))
+        let choice = played.record(.openingServer(.me))
+        let point = played.record(.point(us))
+        #expect(!pointBeforeChoice)
+        #expect(choice)
+        #expect(point)
+    }
 }

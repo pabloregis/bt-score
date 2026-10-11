@@ -14,10 +14,13 @@ public struct Match: Hashable, Sendable, Codable {
 
     /// Registra o evento no log. Um evento que não vale no estado atual (ponto com escolha
     /// de sacador pendente, escolha fora de hora, qualquer coisa depois do fim) é ignorado.
-    public mutating func record(_ event: MatchEvent, at date: Date = .now) {
-        guard state.accepts(event) else { return }
+    /// Devolve se o evento foi aceito.
+    @discardableResult
+    public mutating func record(_ event: MatchEvent, at date: Date = .now) -> Bool {
+        guard state.accepts(event) else { return false }
         if case .point = event, !hasPoints { startedAt = date }
         events.append(event)
+        return true
     }
 
     private var hasPoints: Bool {
