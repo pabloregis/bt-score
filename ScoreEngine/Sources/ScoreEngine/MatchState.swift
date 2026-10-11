@@ -32,6 +32,8 @@ public struct MatchState: Hashable, Sendable {
     public private(set) var sets: [SetScore] = []
     public private(set) var winner: Team?
     public private(set) var phase: Phase = .game
+    /// O que o último evento gerou, se ele foi um ponto; `nil` sem pontos ou depois de uma escolha de sacador.
+    public private(set) var lastPointOutcome: PointOutcome?
 
     /// Primeiro sacador de cada dupla no set; a dupla de quem abre o set entra na escolha inicial.
     private var firstServers: [Team: Player] = [:]
@@ -131,11 +133,14 @@ public struct MatchState: Hashable, Sendable {
         guard accepts(event) else { return }
         switch event {
         case .openingServer(let player):
+            lastPointOutcome = nil
             openingTeam = player.team
             firstServers[player.team] = player
         case .firstServer(let player):
+            lastPointOutcome = nil
             firstServers[player.team] = player
         case .point(let team):
+            lastPointOutcome = .point
             if phase == .tieBreak {
                 winTieBreakPoint(team)
             } else if let next = gameScore(for: team).next {
@@ -159,6 +164,7 @@ public struct MatchState: Hashable, Sendable {
     }
 
     private mutating func winGame(_ team: Team) {
+        lastPointOutcome = .game
         scores[team].games += 1
         scores.us.game = .love
         scores.them.game = .love
@@ -176,5 +182,6 @@ public struct MatchState: Hashable, Sendable {
         sets.append(SetScore(us: scores.us.games, them: scores.them.games, tieBreak: tieBreak))
         winner = team
         phase = .finished
+        lastPointOutcome = isOver ? .match : .set
     }
 }

@@ -114,6 +114,8 @@ struct MatchView: View {
             ScoreboardView(state: state) { team in
                 let now = Date.now
                 match.record(.point(team), at: now)
+                // Só o toque de ponto vibra; desfazer e as escolhas de sacador ficam em silêncio.
+                match.state.lastPointOutcome?.play()
                 if let startedAt = match.startedAt { workout.start(matchStart: startedAt) }
                 if match.state.isOver {
                     finishedAt = now
