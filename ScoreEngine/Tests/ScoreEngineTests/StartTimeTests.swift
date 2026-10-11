@@ -10,6 +10,7 @@ struct StartTimeTests {
     @Test("o início é o horário do primeiro ponto; os seguintes não o mudam")
     func startsAtFirstPoint() {
         var played = Match()
+        played.record(.openingServer(.me), at: Date(timeIntervalSince1970: 500))
         #expect(played.startedAt == nil)
         played.record(.point(us), at: first)
         played.record(.point(them), at: later)
@@ -19,6 +20,7 @@ struct StartTimeTests {
     @Test("desfazer mantém o início; desfazer até o log vazio o limpa, e o próximo ponto recomeça")
     func undoClearsStart() {
         var played = Match()
+        played.record(.openingServer(.me), at: first)
         played.record(.point(us), at: first)
         played.record(.point(us), at: first)
         played.undo()

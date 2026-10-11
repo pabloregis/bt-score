@@ -33,7 +33,52 @@ public struct MatchState: Hashable, Sendable {
     public private(set) var winner: Team?
     public private(set) var phase: Phase = .game
 
+    /// Primeiro sacador de cada dupla no set; a dupla de quem abre o set entra na escolha inicial.
+    private var firstServers: [Team: Player] = [:]
+    /// Dupla que abriu o set.
+    private var openingTeam: Team?
+
     public var isOver: Bool { phase == .finished }
+
+    /// A escolha de sacador que a partida aguarda; enquanto houver uma, pontos não são aceitos.
+    public var awaitingServerChoice: ServerChoice? {
+        guard !isOver else { return nil }
+        guard let openingTeam else { return .openingServer }
+        let team = servingTeam(turn: serveTurn, openingTeam: openingTeam)
+        return firstServers[team] == nil ? .firstServer(of: team) : nil
+    }
+
+    /// Quem saca o ponto atual, ou `nil` enquanto aguarda uma escolha ou depois do fim.
+    public var server: Player? {
+        guard !isOver, let openingTeam else { return nil }
+        let turn = serveTurn
+        let team = servingTeam(turn: turn, openingTeam: openingTeam)
+        guard let first = firstServers[team] else { return nil }
+        // Cada dupla saca nos turnos alternados; dentro dela, os dois jogadores se revezam.
+        return (turn / 2).isMultiple(of: 2) ? first : first.teammate
+    }
+
+    /// No tie-break, qual dos 2 pontos seguidos do sacador é o atual (1 ou 2).
+    /// `nil` no game normal e no primeiro ponto do tie-break, que é sacado sozinho.
+    public var servePairPosition: Int? {
+        guard phase == .tieBreak else { return nil }
+        let points = scores.us.tieBreakPoints + scores.them.tieBreakPoints
+        guard points > 0 else { return nil }
+        return points.isMultiple(of: 2) ? 2 : 1
+    }
+
+    /// Turno de saque desde o início do set: um por game e, no tie-break, o primeiro ponto
+    /// sozinho e depois um turno a cada 2 pontos, seguindo o rodízio.
+    private var serveTurn: Int {
+        let games = scores.us.games + scores.them.games
+        guard phase == .tieBreak else { return games }
+        let points = scores.us.tieBreakPoints + scores.them.tieBreakPoints
+        return games + (points + 1) / 2
+    }
+
+    private func servingTeam(turn: Int, openingTeam: Team) -> Team {
+        turn.isMultiple(of: 2) ? openingTeam : openingTeam.opponent
+    }
 
     init(format: MatchFormat) {
         self.format = format
@@ -72,9 +117,24 @@ public struct MatchState: Hashable, Sendable {
         return "Set \(sets.count + 1) · games \(gamesLine) · \(points)"
     }
 
-    mutating func apply(_ event: MatchEvent) {
-        guard !isOver else { return }
+    /// Se o evento vale no estado atual: pontos só sem escolha pendente, escolhas só quando
+    /// são a aguardada, e nada depois do fim.
+    func accepts(_ event: MatchEvent) -> Bool {
         switch event {
+        case .point: awaitingServerChoice == nil && !isOver
+        case .openingServer: awaitingServerChoice == .openingServer
+        case .firstServer(let player): awaitingServerChoice == .firstServer(of: player.team)
+        }
+    }
+
+    mutating func apply(_ event: MatchEvent) {
+        guard accepts(event) else { return }
+        switch event {
+        case .openingServer(let player):
+            openingTeam = player.team
+            firstServers[player.team] = player
+        case .firstServer(let player):
+            firstServers[player.team] = player
         case .point(let team):
             if phase == .tieBreak {
                 winTieBreakPoint(team)

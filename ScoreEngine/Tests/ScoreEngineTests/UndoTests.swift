@@ -7,7 +7,7 @@ struct UndoTests {
     func undoWithinGame() {
         var played = match([us, us, them])
         played.undo()
-        #expect(played.events == [.point(us), .point(us)])
+        #expect(played.events == [.openingServer(.me), .point(us), .point(us)])
         #expect(played.state.gameScore(for: us) == .thirty)
         #expect(played.state.gameScore(for: them) == .love)
     }
@@ -56,6 +56,7 @@ struct UndoTests {
     @Test("desfazer até o início deixa o log vazio, e desfazer de novo não faz nada")
     func undoToEmpty() {
         var played = match([us, them])
+        played.undo()
         played.undo()
         played.undo()
         #expect(played.events.isEmpty)

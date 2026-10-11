@@ -17,7 +17,7 @@ struct MatchStore {
 
     /// Grava a partida enquanto ela está em andamento; sem pontos ou encerrada, apaga a gravação.
     func update(_ match: Match) {
-        guard !match.events.isEmpty, !match.state.isOver else {
+        guard match.startedAt != nil, !match.state.isOver else {
             clear()
             return
         }

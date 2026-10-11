@@ -3,10 +3,26 @@ import ScoreEngine
 let us = Team.us
 let them = Team.them
 
-func match(_ points: [Team], format: MatchFormat = .singleSet) -> Match {
+/// Partida com os pontos dados. As escolhas de sacador que aparecerem no caminho são respondidas
+/// com `opening` (quem abre o set) e `firstServer` (quem saca primeiro pela outra dupla).
+func match(
+    _ points: [Team],
+    format: MatchFormat = .singleSet,
+    opening: Player = .me,
+    firstServer: Player = .opponent1
+) -> Match {
     var match = Match(format: format)
-    for team in points { match.record(.point(team)) }
+    for team in points {
+        answerServerChoice(&match, opening: opening, firstServer: firstServer)
+        match.record(.point(team))
+    }
     return match
+}
+
+/// Responde a escolha de sacador pendente, se houver.
+func answerServerChoice(_ match: inout Match, opening: Player = .me, firstServer: Player = .opponent1) {
+    guard let choice = match.state.awaitingServerChoice else { return }
+    match.record(choice.event(for: choice == .openingServer ? opening : firstServer))
 }
 
 /// Os 4 pontos seguidos que dão um game à dupla.
