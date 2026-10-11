@@ -18,7 +18,7 @@ struct PointOutcomeTests {
         #expect(match(games(us, us, us, us, us, us)).state.lastPointOutcome == .match)
     }
 
-    @Test("o ponto que fecha o tie-break encerra a partida; os anteriores são ponto comum")
+    @Test("o ponto do 6-6 é fim de game, os do tie-break são ponto comum e o que o fecha encerra a partida")
     func tieBreakPoints() {
         #expect(match(sixAll).state.lastPointOutcome == .game)
         #expect(match(sixAll + [us]).state.lastPointOutcome == .point)

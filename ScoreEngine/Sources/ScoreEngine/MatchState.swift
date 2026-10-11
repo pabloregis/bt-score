@@ -182,6 +182,7 @@ public struct MatchState: Hashable, Sendable {
         sets.append(SetScore(us: scores.us.games, them: scores.them.games, tieBreak: tieBreak))
         winner = team
         phase = .finished
-        lastPointOutcome = isOver ? .match : .set
+        // Em set único, fechar o set sempre encerra a partida; `.set` entra com o melhor de 3 (PAB-14).
+        lastPointOutcome = .match
     }
 }

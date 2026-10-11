@@ -12,6 +12,7 @@ extension PointOutcome {
         }
     }
 
+    @MainActor
     func play() {
         WKInterfaceDevice.current().play(haptic)
     }

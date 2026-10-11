@@ -4,7 +4,7 @@ public enum PointOutcome: Hashable, Sendable {
     case point
     /// O ponto fechou um game.
     case game
-    /// O ponto fechou um set sem encerrar a partida.
+    /// O ponto fechou um set sem encerrar a partida. Só acontece com mais de um set (PAB-14).
     case set
     /// O ponto encerrou a partida.
     case match
