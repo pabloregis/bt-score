@@ -16,6 +16,7 @@ struct MatchView: View {
     }
 
     private let store: MatchStore
+    @State private var workout = WorkoutSession()
     @State private var match = Match()
     @State private var finishedAt: Date?
     @State private var prompt: Prompt?
@@ -33,9 +34,11 @@ struct MatchView: View {
             case .resume(let saved):
                 ResumeView(match: saved) {
                     store.clear()
+                    workout.end()
                     prompt = nil
                 } onResume: {
                     match = saved
+                    if let startedAt = saved.startedAt { workout.start(matchStart: startedAt) }
                     prompt = nil
                 }
             case .undo(let preview):
@@ -54,6 +57,7 @@ struct MatchView: View {
                     prompt = nil
                 } onEnd: {
                     match = Match()
+                    workout.end()
                     prompt = nil
                 }
             case nil:
@@ -62,6 +66,9 @@ struct MatchView: View {
         }
         .onChange(of: match) { _, match in
             store.update(match)
+        }
+        .task {
+            await workout.requestAuthorization()
         }
     }
 
@@ -98,7 +105,11 @@ struct MatchView: View {
             ScoreboardView(state: state) { team in
                 let now = Date.now
                 match.record(.point(team), at: now)
-                if match.state.isOver { finishedAt = now }
+                if let startedAt = match.startedAt { workout.start(matchStart: startedAt) }
+                if match.state.isOver {
+                    finishedAt = now
+                    workout.end()
+                }
             }
         }
     }
