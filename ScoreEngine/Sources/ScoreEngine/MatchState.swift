@@ -66,6 +66,12 @@ public struct MatchState: Hashable, Sendable {
         "\(games(for: .us))-\(games(for: .them))"
     }
 
+    /// Onde a partida parou, para a tela de retomada: "Set 1 · games 4-3 · 30-15".
+    public var resumeSummary: String {
+        let points = phase == .tieBreak ? "tie-break \(pointsLine)" : pointsLine
+        return "Set \(sets.count + 1) · games \(gamesLine) · \(points)"
+    }
+
     mutating func apply(_ event: MatchEvent) {
         guard !isOver else { return }
         switch event {
