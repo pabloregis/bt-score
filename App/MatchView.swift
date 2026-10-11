@@ -16,7 +16,7 @@ struct MatchView: View {
     }
 
     private let store: MatchStore
-    private let historyFile = JSONFile<History>(name: "historico.json")
+    private let historyFile: JSONFile<History>
     @State private var history = History()
     @State private var workout = WorkoutSession()
     @State private var match = Match()
@@ -28,8 +28,9 @@ struct MatchView: View {
     @State private var crown = 0.0
     @FocusState private var crownFocused: Bool
 
-    init(store: MatchStore = MatchStore()) {
-        self.store = store
+    init(directory: URL = .applicationSupportDirectory) {
+        store = MatchStore(directory: directory)
+        historyFile = JSONFile(name: "historico.json", directory: directory)
         _prompt = State(initialValue: store.load().map(Prompt.resume))
         _history = State(initialValue: historyFile.load() ?? History())
     }
